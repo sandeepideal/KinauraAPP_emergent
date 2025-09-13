@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "345087129727",
+    "project_id": "dev-kinaura",
+    "storage_bucket": "dev-kinaura.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:345087129727:android:061735f0310ebf809ea74a",
+        "android_client_info": {
+          "package_name": "com.kinaura.wellness"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLr_9zjUx5TjAUjUHgV_k2xT9i3sHgtuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
