@@ -1,0 +1,228 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Errore",
+    "success": "Successo",
+    "cancel": "Annulla",
+    "confirm": "Conferma",
+    "save": "Salva",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "close": "Chiudi",
+    "back": "Indietro",
+    "next": "Avanti",
+    "previous": "Precedente",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "clear": "Cancella",
+    "retry": "Riprova",
+    "refresh": "Aggiorna"
+  },
+  "auth": {
+    "login": "Accedi",
+    "logout": "Esci",
+    "register": "Registrati",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Conferma Password",
+    "forgotPassword": "Password dimenticata?",
+    "rememberMe": "Ricordami",
+    "continueWithApple": "CONTINUA CON APPLE",
+    "continueWithGoogle": "CONTINUA CON GOOGLE",
+    "sessionExpired": "La tua sessione è scaduta. Accedi di nuovo."
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "appointments": "I Miei Appuntamenti",
+    "services": "Servizi",
+    "resources": "Risorse Paziente",
+    "concierge": "KinAura Concierge",
+    "protocol": "Protocollo Personalizzato",
+    "health": "Dashboard Salute",
+    "longevity": "Longevity Scoreboard",
+    "questionnaires": "Questionari",
+    "menu": "Menu"
+  },
+  "dashboard": {
+    "welcome": "Bentornato",
+    "wellnessTools": "I Tuoi Strumenti Benessere",
+    "nextAppointment": "Prossimo Appuntamento",
+    "longevityScore": "Punteggio Longevità",
+    "membershipTier": "Livello Membership",
+    "quickActions": "Azioni Rapide",
+    "bookAppointment": "Prenota Appuntamento",
+    "viewProtocol": "Visualizza Protocollo",
+    "trackHealth": "Monitora Salute"
+  },
+  "appointments": {
+    "title": "I Miei Appuntamenti",
+    "upcoming": "Prossimi",
+    "past": "Passati",
+    "cancelled": "Annullati",
+    "noAppointments": "Nessun appuntamento trovato",
+    "bookFirst": "Prenota il Tuo Primo Appuntamento",
+    "reschedule": "Riprogramma",
+    "cancel": "Annulla",
+    "details": "Dettagli",
+    "service": "Servizio",
+    "date": "Data",
+    "time": "Ora",
+    "status": "Stato",
+    "notes": "Note"
+  },
+  "health": {
+    "title": "I Tuoi Strumenti Benessere",
+    "description": "Connetti i tuoi dispositivi e monitora le tue metriche di salute",
+    "connectedDevices": "Dispositivi Connessi",
+    "connectDevice": "Connetti Dispositivo",
+    "noDevices": "Nessun dispositivo connesso",
+    "connectToStart": "Connetti Apple Health o WHOOP per iniziare il monitoraggio",
+    "recentMetrics": "Metriche Recenti",
+    "exportData": "Esporta Dati",
+    "noData": "Nessun dato sanitario disponibile",
+    "connectDeviceForData": "Connetti un dispositivo per iniziare a vedere le tue metriche",
+    "lastSync": "Ultima sincronizzazione",
+    "status": "Stato",
+    "connected": "Connesso",
+    "disconnected": "Disconnesso",
+    "disconnect": "Disconnetti",
+    "samples": "campioni in 30 giorni",
+    "dayTrend": "Tendenza 30 Giorni"
+  },
+  "services": {
+    "title": "I Nostri Servizi",
+    "bookNow": "Prenota Ora",
+    "learnMore": "Scopri di Più",
+    "duration": "Durata",
+    "minutes": "minuti",
+    "benefits": "Benefici",
+    "description": "Descrizione",
+    "price": "Prezzo",
+    "category": "Categoria"
+  },
+  "protocol": {
+    "title": "Il Tuo Protocollo Personalizzato",
+    "subtitle": "Basato sulla Tua Biologia Unica",
+    "description": "Il tuo protocollo benessere di precisione, alimentato da analisi genomiche avanzate e ottimizzazione dei biomarcatori",
+    "pillars": {
+      "genomic": "Analisi Genomica",
+      "biomarker": "Ottimizzazione Biomarcatori",
+      "lifestyle": "Integrazione Lifestyle"
+    }
+  },
+  "errors": {
+    "generic": "Si è verificato un errore imprevisto",
+    "network": "Errore di rete - controlla la tua connessione",
+    "notFound": "Pagina non trovata",
+    "unauthorized": "Non sei autorizzato ad accedere a questa pagina",
+    "forbidden": "Accesso negato",
+    "serverError": "Errore del server - riprova più tardi",
+    "validationError": "Controlla i tuoi dati e riprova"
+  },
+  "notifications": {
+    "appointmentBooked": "Appuntamento prenotato con successo",
+    "appointmentCancelled": "Appuntamento annullato",
+    "dataExported": "Dati esportati con successo",
+    "deviceConnected": "Dispositivo connesso con successo",
+    "deviceDisconnected": "Dispositivo disconnesso"
+  },
+  "rag": {
+    "systemName": "KinAura AI Concierge",
+    "systemDescription": "Esperto di Medicina Rigenerativa",
+    "welcomeMessage": "Benvenuto in KinAura! 🌟 Sono qui per aiutarti con informazioni sui nostri trattamenti di medicina rigenerativa. Come posso assisterti oggi?",
+    "thinkingMessage": "KinAura sta pensando...",
+    "sources": {
+      "show": "Mostra {{count}} fonti",
+      "hide": "Nascondi fonti",
+      "similarity": "{{percentage}}% simile"
+    },
+    "confidence": {
+      "high": "Alta affidabilità",
+      "medium": "Media affidabilità",
+      "low": "Bassa affidabilità"
+    },
+    "disclaimer": "Questa informazione non sostituisce la consultazione medica. I protocolli KinAura sono validati da clinici.",
+    "consultationRecommended": "Consulenza personalizzata consigliata",
+    "protocolRecommended": "Protocollo Consigliato",
+    "suggestedQuestions": "Domande suggerite:",
+    "quickActions": {
+      "book": "📅 Prenota",
+      "treatments": "🏥 Trattamenti", 
+      "contact": "📞 Contatto"
+    }
+  },
+  "auth": {
+    "secureLogin": "Accesso Sicuro",
+    "loginWithCookies": "Accesso (Web)",
+    "loginWithTokens": "Accesso (Mobile)",
+    "tokenRefresh": "Aggiornamento sessione...",
+    "secureLogout": "Disconnessione Sicura",
+    "sessionExpired": "Sessione scaduta, effettua nuovamente l'accesso",
+    "csrfError": "Validazione sicurezza fallita, aggiorna e riprova",
+    "authStorageType": "Autenticazione: {{type}}"
+  },
+  "admin": {
+    "accessDenied": "Accesso admin negato",
+    "mobileRestriction": "Le funzioni admin non sono disponibili sui dispositivi mobili",
+    "webOnly": "Questa funzione è disponibile solo su web",
+    "analytics": {
+      "title": "Analisi RAG",
+      "overview": "Panoramica Sistema",
+      "totalSessions": "Sessioni Totali",
+      "avgConfidence": "Affidabilità Media",
+      "knowledgeCoverage": "Copertura Conoscenza",
+      "unresolvedQueries": "Query Irrisolte",
+      "trends": "Tendenze"
+    },
+    "unresolvedQueries": {
+      "title": "Query Irrisolte",
+      "description": "Rivedi le domande con bassa affidabilità del chatbot",
+      "markResolved": "Segna come Risolto",
+      "confidence": "{{percentage}}% affidabile",
+      "suggestedTopics": "Argomenti suggeriti:",
+      "noQueries": "Nessuna query irrisolta - ottimo lavoro!"
+    },
+    "knowledgeGaps": {
+      "title": "Analisi Lacune Conoscenza",
+      "description": "Identifica argomenti che necessitano più contenuti nella base di conoscenza",
+      "frequency": "{{count}} domande",
+      "priority": {
+        "high": "Alta Priorità",
+        "medium": "Media Priorità", 
+        "low": "Bassa Priorità"
+      },
+      "noGaps": "Nessuna lacuna identificata - copertura eccellente!"
+    },
+    "ragTest": {
+      "title": "Test Sistema RAG",
+      "inputPlaceholder": "Inserisci una domanda di test per vedere come risponde il sistema RAG...",
+      "testButton": "Testa Risposta RAG",
+      "response": "Risposta:",
+      "sourcesFound": "Fonti Trovate:",
+      "responseTime": "Tempo di Risposta:"
+    }
+  },
+  "mobile": {
+    "permissions": {
+      "camera": "L'accesso alla fotocamera è necessario per scansionare documenti e caricare immagini cliniche",
+      "photos": "L'accesso alle foto è necessario per caricare documenti medici",
+      "location": "L'accesso alla posizione aiuta a verificare la vicinanza alla clinica per gli appuntamenti",
+      "microphone": "L'accesso al microfono permette note vocali per i record di trattamento",
+      "health": "L'integrazione dei dati sanitari abilita protocolli di trattamento personalizzati"
+    },
+    "network": {
+      "offline": "Sei offline - mostrando contenuto memorizzato",
+      "reconnecting": "Riconnessione ai server KinAura...",
+      "syncComplete": "Contenuto sincronizzato"
+    },
+    "storage": {
+      "secureStorageEnabled": "Archiviazione sicura attiva",
+      "tokensProtected": "La tua autenticazione è sicura"
+    }
+  },
+  "security": {
+    "httpsRequired": "Connessione sicura richiesta",
+    "mixedContentBlocked": "Contenuto insicuro bloccato per la tua protezione",
+    "certificateError": "Validazione certificato fallita"
+  }
+}

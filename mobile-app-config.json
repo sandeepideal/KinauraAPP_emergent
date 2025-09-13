@@ -1,0 +1,142 @@
+{
+  "name": "KinAura",
+  "displayName": "KinAura - Regenerative Wellness",
+  "version": "1.0.0",
+  "description": "Transform your health journey with KinAura's cutting-edge regenerative wellness platform.",
+  "homepage": "https://kinauramed.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/kinaura-app"
+  },
+  "keywords": [
+    "regenerative medicine",
+    "wellness",
+    "health",
+    "longevity", 
+    "NAD+",
+    "morpheus8",
+    "IV therapy",
+    "personalized medicine",
+    "luxury health",
+    "medical spa"
+  ],
+  "categories": [
+    "Medical",
+    "Health & Fitness",
+    "Lifestyle"
+  ],
+  "platforms": {
+    "ios": {
+      "bundleId": "com.kinauramed.kinaura",
+      "minVersion": "12.0",
+      "targetSdkVersion": "17.0",
+      "supportedDevices": ["iPhone", "iPad"],
+      "capabilities": [
+        "HealthKit",
+        "Push Notifications",
+        "Background App Refresh",
+        "Sign in with Apple"
+      ]
+    },
+    "android": {
+      "packageName": "com.kinauramed.kinaura",
+      "minSdkVersion": 24,
+      "targetSdkVersion": 33,
+      "compileSdkVersion": 33,
+      "permissions": [
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.WAKE_LOCK",
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ]
+    }
+  },
+  "appStore": {
+    "ios": {
+      "primaryCategory": "Medical",
+      "secondaryCategory": "Health & Fitness",
+      "contentRating": "4+",
+      "supportedLanguages": ["en-US", "it-IT"],
+      "metadata": {
+        "shortDescription": "Luxury regenerative wellness platform with AI-powered personalized protocols.",
+        "fullDescription": "Transform your health journey with KinAura, the luxury medical app that brings cutting-edge regenerative wellness to your fingertips.\n\nKEY FEATURES:\n• Personalized Treatment Protocols - AI-powered recommendations based on your unique health profile\n• Appointment Booking - Schedule treatments with world-class practitioners\n• Health Dashboard - Track your wellness journey with comprehensive analytics\n• Boutique Products - Access exclusive KinAura wellness products\n• Concierge Chatbot - Get instant answers about treatments and protocols\n• Real-time Updates - Stay informed with live content updates\n\nTREATMENTS AVAILABLE:\n• Morpheus8 Microneedling\n• NAD+ IV Therapy\n• Hyperbaric Oxygen Therapy\n• Exosome Treatments\n• Laser Therapies\n• And many more...\n\nExperience the future of personalized medicine with KinAura's revolutionary platform that combines advanced diagnostics, AI-driven protocols, and luxury wellness services.",
+        "keywords": "regenerative medicine,wellness,health,longevity,NAD+,morpheus8,IV therapy,personalized medicine,luxury health,medical spa",
+        "supportUrl": "https://kinauramed.com/support",
+        "privacyPolicyUrl": "https://kinauramed.com/privacy",
+        "marketingUrl": "https://kinauramed.com"
+      },
+      "screenshots": {
+        "iphone": [
+          "screenshot-iphone-1-login.png",
+          "screenshot-iphone-2-dashboard.png", 
+          "screenshot-iphone-3-appointments.png",
+          "screenshot-iphone-4-treatments.png",
+          "screenshot-iphone-5-chatbot.png"
+        ],
+        "ipad": [
+          "screenshot-ipad-1-dashboard.png",
+          "screenshot-ipad-2-appointments.png",
+          "screenshot-ipad-3-health-analytics.png"
+        ]
+      }
+    },
+    "android": {
+      "primaryCategory": "MEDICAL",
+      "contentRating": "Everyone",
+      "supportedLanguages": ["en-US", "it-IT"],
+      "metadata": {
+        "shortDescription": "Luxury regenerative wellness with personalized AI protocols",
+        "fullDescription": "Transform your health with KinAura's cutting-edge regenerative wellness platform.\n\n🏥 PERSONALIZED MEDICINE\n• AI-powered treatment protocols based on your unique health profile\n• Advanced diagnostics and biomarker analysis\n• Customized wellness plans for optimal results\n\n💊 PREMIUM TREATMENTS\n• Morpheus8 Microneedling - Advanced skin rejuvenation\n• NAD+ IV Therapy - Cellular regeneration and longevity\n• Hyperbaric Oxygen Therapy - Enhanced healing and recovery\n• Exosome Treatments - Cutting-edge regenerative medicine\n• Laser Therapies - Non-invasive aesthetic treatments\n\n📱 LUXURY FEATURES\n• Seamless appointment booking with world-class practitioners\n• Comprehensive health dashboard with real-time analytics\n• Exclusive boutique products for at-home wellness\n• AI concierge chatbot for instant treatment guidance\n• Real-time content updates without app updates\n\n🌟 EXPERIENCE THE FUTURE\nJoin thousands of patients who have transformed their health journey with KinAura's revolutionary approach to personalized medicine. Our platform combines the latest in medical technology with luxury service to deliver unparalleled wellness experiences.\n\nDownload KinAura today and begin your journey to optimal health and longevity.",
+        "supportEmail": "support@kinauramed.com",
+        "privacyPolicyUrl": "https://kinauramed.com/privacy",
+        "websiteUrl": "https://kinauramed.com"
+      },
+      "screenshots": {
+        "phone": [
+          "screenshot-android-1-welcome.png",
+          "screenshot-android-2-dashboard.png",
+          "screenshot-android-3-booking.png", 
+          "screenshot-android-4-treatments.png",
+          "screenshot-android-5-health-data.png",
+          "screenshot-android-6-chatbot.png"
+        ],
+        "tablet": [
+          "screenshot-tablet-1-dashboard.png",
+          "screenshot-tablet-2-appointments.png",
+          "screenshot-tablet-3-analytics.png"
+        ]
+      }
+    }
+  },
+  "buildConfiguration": {
+    "optimization": true,
+    "minify": true,
+    "obfuscation": true,
+    "sourceMap": false,
+    "analytics": true,
+    "crashReporting": true
+  },
+  "features": {
+    "contentSync": {
+      "enabled": true,
+      "realTimeUpdates": true,
+      "offlineSupport": true
+    },
+    "authentication": {
+      "socialLogin": ["apple", "google", "facebook"],
+      "biometric": true,
+      "twoFactor": false
+    },
+    "notifications": {
+      "push": true,
+      "local": true,
+      "categories": ["appointments", "treatments", "wellness"]
+    },
+    "integrations": {
+      "healthKit": true,
+      "googleFit": true,
+      "stripe": true,
+      "firebase": true
+    }
+  }
+}

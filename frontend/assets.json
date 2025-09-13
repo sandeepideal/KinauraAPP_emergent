@@ -1,0 +1,17 @@
+{
+  "icon": {
+    "source": "resources/icon.svg",
+    "platform": {
+      "android": {
+        "adaptive-icon": {
+          "foreground": "resources/icon.svg",
+          "background": "#FAFAF7"
+        }
+      }
+    }
+  },
+  "splash": {
+    "source": "resources/splash.png",
+    "background": "#FAFAF7"
+  }
+}

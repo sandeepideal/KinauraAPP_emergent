@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[178],{7178:(e,n,t)=>{t.d(n,{Dialog:()=>o});const o=(0,t(5403).F3)("Dialog",{web:()=>t.e(760).then(t.bind(t,5760)).then((e=>new e.DialogWeb))})}}]);
+//# sourceMappingURL=178.154f0bf8.chunk.js.map

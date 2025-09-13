@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">KinAura</string>
+    <string name="title_activity_main">KinAura</string>
+    <string name="package_name">com.kinaura.wellness</string>
+    <string name="custom_url_scheme">com.kinaura.wellness</string>
+</resources>

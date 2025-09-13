@@ -1,0 +1,602 @@
+🚀 Starting KinAura Enhanced Chatbot Conversation Flow Testing...
+🎯 FOCUS: Testing Conversation Flow, Repetition Avoidance, and Context Awareness
+================================================================================
+
+================================================================================
+🧪 Running: Root Endpoint
+================================================================================
+
+🔍 Testing Root API Endpoint...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/
+✅ Passed - Status: 200
+   Response: {'message': 'Welcome to KinAura - Centre for Regenerative Wellness'}
+
+================================================================================
+🧪 Running: Services Endpoint
+================================================================================
+
+🔍 Testing Get All Services...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/services
+✅ Passed - Status: 200
+   Response: List with 24 items
+   Found 24 services
+   ✅ All expected services found
+
+================================================================================
+🧪 Running: Admin Authentication
+================================================================================
+
+🔍 Testing Admin Social Login...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/auth/social-login
+✅ Passed - Status: 200
+   Response: {'access_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1MTJmZTZiYy04ZTg5LTRlOGUtODI5My0xY2JmNmRiY2U5ZjgiLCJleHAiOjE3NTUzMzgwMjh9.IR87RRfCvG1rzIttof8x6qWb-YI-WznDrEhiq_XTfR8', 'token_type': 'bearer', 'user': {'id': '512fe6bc-8e89-4e8e-8293-1cbf6dbce9f8', 'email': 'admin_test_092348@kinaura.com', 'full_name': 'Dr. Marco Rossi', 'phone': None, 'role': 'admin', 'membership_tier': 'elite', 'created_at': '2025-08-16T09:23:48.120111', 'is_active': True}}
+   ✅ Admin user created with ID: 512fe6bc-8e89-4e8e-8293-1cbf6dbce9f8
+   ✅ Admin role properly assigned
+   ✅ Admin membership tier set to elite
+
+================================================================================
+🧪 Running: Enhanced Chatbot Conversation Flow
+================================================================================
+
+🔍 Testing Enhanced KinAura Chatbot Conversation Flow and Repetition Avoidance...
+
+   📝 Test 1: First Message - IV Therapy Inquiry
+
+🔍 Testing First Message - IV Therapy Benefits...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ First response received (1144 chars)
+   🆔 Session ID: 96cfc761-3360-4064-980e-ad64a6af3e58
+   💡 Suggestions: 4 provided
+   ✅ First message includes greeting
+   ✅ Response contains IV therapy information
+
+   📝 Test 2: Second Message - Ozone Therapy Inquiry
+
+🔍 Testing Second Message - Ozone Therapy...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Second response received (794 chars)
+   ✅ Second message correctly skips greeting
+   ✅ Response contains ozone therapy information
+
+   📝 Test 3: Third Message - PEMF Therapy Inquiry
+
+🔍 Testing Third Message - PEMF Therapy...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Third response received (855 chars)
+   ✅ Response contains PEMF therapy information
+
+   📝 Test 4: Fourth Message - Services Overview
+
+🔍 Testing Fourth Message - Services Overview...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Fourth response received (1719 chars)
+   ✅ Response shows context awareness
+
+   📊 Test 5: Response Structure Variation Analysis
+   📈 Opening variation: 4/4 unique (100.0%)
+   ✅ Excellent opening variation - avoiding repetitive patterns
+   📈 Closing variation: 4/4 unique (100.0%)
+   ✅ Excellent closing variation - diverse ending patterns
+
+   📝 Test 6: Context Awareness - Follow-up Question
+
+🔍 Testing Context-Aware Follow-up...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Context-aware response received (1475 chars)
+   ✅ Response references previously discussed treatments
+   ✅ Response provides personalized recommendation
+
+   📝 Test 7: Dynamic System Prompt - Appointment Intent
+
+🔍 Testing Appointment Intent Detection...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Appointment intent response received (393 chars)
+   ✅ Response contains appointment booking information
+   ✅ Response provides booking guidance
+
+   📊 Test 8: Overall Conversation Quality Assessment
+   📏 Average response length: 1128 characters
+   💬 Total conversation responses: 4
+   🎯 Overall conversation flow score: 100.0/100
+   🌟 EXCELLENT: Chatbot demonstrates outstanding conversation flow and repetition avoidance
+
+   📋 CONVERSATION FLOW IMPROVEMENTS SUMMARY:
+   • Opening Variation: 100.0% unique openings
+   • Closing Variation: 100.0% unique closings
+   • Context Awareness: ✅ Present
+   • Natural Flow: ✅ Good
+   • Intent Detection: ✅ Working
+   • Content Relevance: 100.0% accurate responses
+
+================================================================================
+🧪 Running: Patient Chat Functionality
+================================================================================
+
+🔍 Testing Patient Chat Functionality...
+
+🔍 Testing Anonymous Chat - IV Therapy Inquiry...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Chat response received
+   💬 Response length: 1068 characters
+   🆔 Session ID: ac7bc75a-b75f-4032-9a2a-23a361c80e1c
+   💡 Suggestions: 4 provided
+   ✅ Response contains relevant IV therapy information
+
+🔍 Testing Follow-up Chat - Pricing and Booking...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Follow-up chat response received
+   ✅ Response contains pricing or booking information
+
+🔍 Testing Appointment Integration Chat - Ozone Therapy Booking...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Appointment-related chat response received
+   ✅ Response contains appointment availability information
+
+🔍 Testing Italian Language Chat - Regenerative Medicine...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Italian chat response received
+   ✅ Response appears to be in Italian
+
+🔍 Testing Get Chat Sessions...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/sessions?limit=10
+✅ Passed - Status: 200
+   Response: List with 10 items
+   ✅ Retrieved 10 chat sessions
+   ✅ Chat sessions have all required fields
+
+🔍 Testing Get Chat Messages for Session...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/sessions/ac7bc75a-b75f-4032-9a2a-23a361c80e1c/messages
+✅ Passed - Status: 200
+   Response: List with 4 items
+   ✅ Retrieved 4 messages for session
+   ✅ Chat messages have all required fields
+   ✅ Session contains both user and assistant messages
+   ✅ Patient Chat Functionality test completed successfully
+
+================================================================================
+🧪 Running: Chatbot Configuration Management
+================================================================================
+
+🔍 Testing Chatbot Configuration Management...
+
+🔍 Testing Get Current Chatbot Configuration...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/chatbot/config
+✅ Passed - Status: 200
+   ❌ Config missing system_prompt field
+
+================================================================================
+🧪 Running: Knowledge Base Management
+================================================================================
+
+🔍 Testing Knowledge Base Management...
+
+🔍 Testing Create Knowledge Base Item - IV Therapy Benefits...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base
+✅ Passed - Status: 200
+   ✅ Created KB item: IV Therapy Benefits (ID: 2f1aa6f0-a2f3-4d53-a860-500a002e0341)
+
+🔍 Testing Create Knowledge Base Item - Ozone Therapy Overview...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base
+✅ Passed - Status: 200
+   ✅ Created KB item: Ozone Therapy Overview (ID: a9a30cc4-cc88-4523-b496-f4ff857f38fd)
+
+🔍 Testing Create Knowledge Base Item - Appointment Booking Policy...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base
+✅ Passed - Status: 200
+   ✅ Created KB item: Appointment Booking Policy (ID: a8985452-529a-4d56-82c2-9a46ea1e551f)
+
+🔍 Testing Get All Knowledge Base Items...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base
+✅ Passed - Status: 200
+   Response: List with 159 items
+   ✅ Retrieved 159 knowledge base items
+   ✅ All created KB items found
+
+🔍 Testing Update Knowledge Base Item...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base/2f1aa6f0-a2f3-4d53-a860-500a002e0341
+✅ Passed - Status: 200
+   ✅ Successfully updated KB item 2f1aa6f0-a2f3-4d53-a860-500a002e0341
+   ✅ KB item title updated correctly
+   ✅ KB item version incremented
+
+🔍 Testing Delete Knowledge Base Item...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base/a8985452-529a-4d56-82c2-9a46ea1e551f
+✅ Passed - Status: 200
+   Response: {'message': 'Knowledge base item deleted successfully'}
+   ✅ Successfully deleted KB item a8985452-529a-4d56-82c2-9a46ea1e551f
+   ✅ Knowledge Base Management test completed successfully
+
+================================================================================
+🧪 Running: Comprehensive Knowledge Base Functionality
+================================================================================
+
+🔍 Testing KinAura Chatbot Knowledge Base Functionality...
+
+📚 Test 1: Check Knowledge Base Content
+
+🔍 Testing Get Knowledge Base Content...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base
+✅ Passed - Status: 200
+   Response: List with 158 items
+   ✅ Knowledge base contains 158 total items
+   ✅ 135 approved items ready for use
+   ✅ Categories found: treatments, policies, general
+   ✅ Expected categories present: treatments, policies
+   ✅ IV Therapy items: 96
+   ✅ Ozone Therapy items: 19
+   ✅ PEMF Therapy items: 8
+
+🔍 Test 2: Test Knowledge Base Search
+
+🔍 Testing Search KB - 'IV therapy benefits'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base/search?q=IV therapy benefits
+✅ Passed - Status: 405
+   Response: {'detail': 'Method Not Allowed'}
+
+🔍 Testing Search KB - 'IV therapy benefits'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base?search=IV therapy benefits
+✅ Passed - Status: 200
+   Response: List with 158 items
+   ✅ Search for 'IV therapy benefits' returned 158 results
+
+🔍 Testing Search KB - 'ozone treatment'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base/search?q=ozone treatment
+✅ Passed - Status: 405
+   Response: {'detail': 'Method Not Allowed'}
+
+🔍 Testing Search KB - 'ozone treatment'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base?search=ozone treatment
+✅ Passed - Status: 200
+   Response: List with 158 items
+   ✅ Search for 'ozone treatment' returned 158 results
+
+🔍 Testing Search KB - 'PEMF healing'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base/search?q=PEMF healing
+✅ Passed - Status: 405
+   Response: {'detail': 'Method Not Allowed'}
+
+🔍 Testing Search KB - 'PEMF healing'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base?search=PEMF healing
+✅ Passed - Status: 200
+   Response: List with 158 items
+   ✅ Search for 'PEMF healing' returned 158 results
+
+🔍 Testing Search KB - 'appointment booking'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base/search?q=appointment booking
+✅ Passed - Status: 405
+   Response: {'detail': 'Method Not Allowed'}
+
+🔍 Testing Search KB - 'appointment booking'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base?search=appointment booking
+✅ Passed - Status: 200
+   Response: List with 158 items
+   ✅ Search for 'appointment booking' returned 158 results
+
+🔍 Testing Search KB - 'membership benefits'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base/search?q=membership benefits
+✅ Passed - Status: 405
+   Response: {'detail': 'Method Not Allowed'}
+
+🔍 Testing Search KB - 'membership benefits'...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/admin/knowledge-base?search=membership benefits
+✅ Passed - Status: 200
+   Response: List with 158 items
+   ✅ Search for 'membership benefits' returned 158 results
+
+💬 Test 3: Test Chatbot Responses with Knowledge Base
+
+🔍 Testing KB Chat Test 1 - Treatment Question...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Response received (942 chars)
+   📚 Knowledge sources referenced: 0
+   💡 Suggestions provided: 4
+   ✅ Response contains relevant keywords: iv, therapy, nutrients, absorption, benefits, energy
+   ✅ Response appears to use knowledge base context
+
+🔍 Testing KB Chat Test 2 - Treatment Question...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Response received (916 chars)
+   📚 Knowledge sources referenced: 0
+   💡 Suggestions provided: 4
+   ✅ Response contains relevant keywords: ozone, therapy, immune, safe
+   ✅ Response appears to use knowledge base context
+
+🔍 Testing KB Chat Test 3 - Treatment Question...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Response received (916 chars)
+   📚 Knowledge sources referenced: 0
+   💡 Suggestions provided: 4
+   ✅ Response contains relevant keywords: pemf, electromagnetic, cellular, healing, recovery, inflammation
+   ✅ Response appears to use knowledge base context
+
+🔍 Testing KB Chat Test 4 - Treatment Question...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Response received (836 chars)
+   📚 Knowledge sources referenced: 0
+   💡 Suggestions provided: 4
+   ✅ Response contains relevant keywords: services, membership, benefits, treatments, kinaura
+   ✅ Response appears to use knowledge base context
+
+🔍 Testing KB Chat Test 5 - Treatment Question...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Response received (479 chars)
+   📚 Knowledge sources referenced: 0
+   💡 Suggestions provided: 4
+   ✅ Response contains relevant keywords: book, appointment, cancellation, policy, 24, hour
+   ✅ Response appears to use knowledge base context
+   📊 Knowledge-based responses: 5/5 successful
+
+🎯 Test 4: Test Intent Classification
+
+🔍 Testing Intent Test 1 - English appointment...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ English response provided
+   ✅ Appointment intent properly handled
+
+🔍 Testing Intent Test 2 - Italian appointment...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Italian language detected and responded appropriately
+   ⚠️  Appointment intent may not be properly handled
+
+🔍 Testing Intent Test 3 - English treatment_info...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ English response provided
+   ✅ Treatment info intent properly handled
+
+🔍 Testing Intent Test 4 - Italian treatment_info...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Italian language detected and responded appropriately
+   ⚠️  Treatment info intent may not be properly handled
+
+🔍 Testing Intent Test 5 - English pricing...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ English response provided
+   ✅ Pricing intent properly handled
+   📊 Intent classification: 5/5 successful
+
+🔗 Test 5: Verify Knowledge Base Integration Quality
+
+🔍 Testing Fallback Behavior Test - Off-topic Query...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Fallback response received
+   ⚠️  Fallback may not appropriately redirect to relevant services
+
+🔍 Testing Source Attribution Test - Detailed IV Query...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Detailed response received (1330 chars)
+   ⚠️  No explicit source attribution found
+   ✅ Response is detailed and comprehensive
+
+📋 Knowledge Base Functionality Assessment:
+   ✅ Knowledge base contains content
+   ✅ Chatbot effectively uses knowledge base for responses
+   ✅ Intent classification and language detection working
+   ✅ Responses include relevant context from knowledge base
+   ✅ Overall knowledge base integration is functional
+
+🎯 Knowledge Base Functionality Score: 5/5 (100.0%)
+   🎉 EXCELLENT: Knowledge base functionality is working excellently
+   ✅ Comprehensive Knowledge Base Functionality test completed
+
+================================================================================
+🧪 Running: User Memory Profile Creation
+================================================================================
+
+🔍 Testing User Memory Profile Creation...
+
+🔍 Testing Create User for Memory Testing...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/auth/register
+✅ Passed - Status: 200
+   Response: {'access_token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiZGU4OWJlNC0zYzcyLTQ1YTktYWMxMy0yMDUwNGVlZDhkMWMiLCJleHAiOjE3NTUzMzgxMTN9.tKbNMBa1K1U4EIlJ8lUO_dy6F1YR3V7aaaAna0XBZsI', 'token_type': 'bearer', 'user': {'id': 'bde89be4-3c72-45a9-ac13-20504eed8d1c', 'email': 'memory_user_20250816_092512@kinaura.com', 'full_name': 'Memory Test User', 'phone': '+1234567890', 'role': 'member', 'membership_tier': 'not_member', 'created_at': '2025-08-16T09:25:13.138805', 'is_active': True}}
+   ✅ Created memory test user with ID: bde89be4-3c72-45a9-ac13-20504eed8d1c
+
+🔍 Testing Get Initial User Memory Profile...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/user-memory/bde89be4-3c72-45a9-ac13-20504eed8d1c
+✅ Passed - Status: 200
+   Response: {'message': 'No memory profile found for this user'}
+   ✅ Initial memory profile correctly empty
+
+🔍 Testing Send Chat Message 1 for Memory Building...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Chat message 1 sent successfully
+
+🔍 Testing Send Chat Message 2 for Memory Building...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Chat message 2 sent successfully
+
+🔍 Testing Send Chat Message 3 for Memory Building...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Chat message 3 sent successfully
+
+🔍 Testing Send Chat Message 4 for Memory Building...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Chat message 4 sent successfully
+
+🔍 Testing Refresh User Memory Profile...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/user-memory/bde89be4-3c72-45a9-ac13-20504eed8d1c/refresh
+✅ Passed - Status: 200
+   Response: {'message': 'User memory profile refreshed successfully'}
+   ✅ Memory profile refreshed successfully
+
+🔍 Testing Get Updated User Memory Profile...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/user-memory/bde89be4-3c72-45a9-ac13-20504eed8d1c
+✅ Passed - Status: 200
+   ✅ Retrieved updated memory profile
+   ✅ Memory profile has all expected fields
+   ✅ Treatment interests detected: ['NAD+ Therapy', 'Anti-Aging', 'Ozone Therapy', 'Energy & Vitality', 'IV Therapy']
+   ✅ Health concerns detected: ['Skin Health', 'Fatigue', 'Pain Management', 'Sleep Issues']
+   ✅ Language preference: English
+   ✅ User Memory Profile Creation test completed successfully
+
+================================================================================
+🧪 Running: Cross-Session Memory Testing
+================================================================================
+
+🔍 Testing Cross-Session Memory Persistence...
+
+🔍 Testing New Session - PEMF Therapy Query...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Response references previous interests: ['iv', 'energy', 'fatigue']
+   ✅ PEMF therapy information provided
+
+🔍 Testing New Session - Contextual Appointment Query...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Response shows awareness of previous conversation context
+   ✅ Appointment booking information provided
+
+🔍 Testing Check Memory Profile After New Session...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/user-memory/bde89be4-3c72-45a9-ac13-20504eed8d1c
+✅ Passed - Status: 200
+   ✅ PEMF therapy added to user interests
+   ✅ Previous interests maintained
+   ✅ Cross-Session Memory Testing completed successfully
+
+================================================================================
+🧪 Running: Personalized Response Testing
+================================================================================
+
+🔍 Testing Personalized Response Generation...
+
+🔍 Testing Personalized Wellness Recommendations...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Response shows personalization based on user history
+   ✅ User interests referenced: ['iv', 'ozone', 'energy', 'fatigue']
+
+🔍 Testing Personalized Pricing Information...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Pricing response includes user's interested treatments
+   ✅ Pricing information provided
+
+🔍 Testing Italian Language Response Test...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ⚠️  Response not clearly in Italian (may be English)
+   ✅ Personalized Response Testing completed successfully
+
+================================================================================
+🧪 Running: Memory-Based Personalization
+================================================================================
+
+🔍 Testing Memory-Based Personalization...
+
+🔍 Testing Personalized Follow-up Suggestions...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ Follow-up suggestions provided: 4 suggestions
+   ✅ Suggestions are relevant to user interests
+
+🔍 Testing Personalized Treatment Recommendations...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+❌ Failed - Network Error: HTTPSConnectionPool(host='4ba16ed0-3b00-46a2-9e7f-c6175ae9d1fb.preview.emergentagent.com', port=443): Read timed out. (read timeout=10)
+   ❌ Failed to get treatment recommendations
+
+================================================================================
+🧪 Running: Memory Profile Analysis
+================================================================================
+
+🔍 Testing Memory Profile Analysis...
+
+🔍 Testing Get Memory Profile for Analysis...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/user-memory/bde89be4-3c72-45a9-ac13-20504eed8d1c
+✅ Passed - Status: 200
+   ✅ Retrieved memory profile for analysis
+   📊 Detected interests: ['NAD+ Therapy', 'Anti-Aging', 'Ozone Therapy', 'Energy & Vitality', 'IV Therapy', 'PEMF Therapy']
+   📈 Interest detection accuracy: 100.0% (4/4)
+   ✅ Interest detection accuracy acceptable
+   📊 Detected concerns: ['Skin Health', 'Fatigue', 'Pain Management', 'Sleep Issues']
+   ✅ Health concerns correctly detected
+   🌐 Detected language: English
+   ✅ Language detection working
+   📅 Appointment history: No previous appointments
+   ✅ Appointment history integrated
+   💭 Previous topics tracked: 20 topics
+   ✅ Topic tracking working
+   ✅ Memory Profile Analysis testing completed successfully
+
+================================================================================
+🧪 Running: Memory Update Verification
+================================================================================
+
+🔍 Testing Memory Update Verification...
+
+🔍 Testing Get Baseline Memory Profile...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/user-memory/bde89be4-3c72-45a9-ac13-20504eed8d1c
+✅ Passed - Status: 200
+   📊 Baseline interests: 6 items
+   📊 Baseline concerns: 4 items
+
+🔍 Testing Add New Interest 1...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ New interest message 1 sent
+
+🔍 Testing Add New Interest 2...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ New interest message 2 sent
+
+🔍 Testing Add New Interest 3...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ New interest message 3 sent
+
+🔍 Testing Refresh Memory After New Interests...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/user-memory/bde89be4-3c72-45a9-ac13-20504eed8d1c/refresh
+✅ Passed - Status: 200
+   Response: {'message': 'User memory profile refreshed successfully'}
+
+🔍 Testing Get Updated Memory Profile...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat/user-memory/bde89be4-3c72-45a9-ac13-20504eed8d1c
+✅ Passed - Status: 200
+   📊 Updated interests: 7 items
+   📊 Updated concerns: 4 items
+   ✅ New interests added: {'Peptide Therapy'}
+   ⚠️  No clear new concerns detected
+
+🔍 Testing Test Memory Persistence in New Session...
+   URL: https://health-dashboard-17.preview.emergentagent.com/api/chat
+✅ Passed - Status: 200
+   ✅ New interests referenced in response: ['nad']
+   ⚠️  Response doesn't address both concerns
+   ✅ Memory profile timestamp updated
+   ✅ Memory Update Verification testing completed successfully
+
+================================================================================
+📊 FINAL TEST RESULTS
+================================================================================
+Tests Run: 69
+Tests Passed: 68
+Tests Failed: 1
+Success Rate: 98.6%
+⚠️  1 tests failed
+🚨 Some chatbot conversation flow functionality may need attention

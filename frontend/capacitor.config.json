@@ -1,0 +1,92 @@
+{
+  "appId": "com.kinauramed.kinaura",
+  "appName": "KinAura",
+  "webDir": "build",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "allowNavigation": [
+      "golden-health-1.preview.emergentagent.com",
+      "api.kinaura.med",
+      "*.kinauramed.com",
+      "localhost",
+      "10.0.2.2"
+    ]
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 3000,
+      "launchAutoHide": true,
+      "backgroundColor": "#FAFAF7",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false,
+      "iosSpinnerStyle": "small",
+      "spinnerColor": "#C8A25A"
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#FAFAF7"
+    },
+    "Keyboard": {
+      "resize": "body",
+      "style": "dark",
+      "resizeOnFullScreen": true
+    },
+    "App": {
+      "launchUrl": ""
+    },
+    "Haptics": {
+      "enabled": true
+    },
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon_config_sample",
+      "iconColor": "#C8A25A",
+      "sound": "kinaura_notification.wav"
+    },
+    "Camera": {
+      "permissions": ["camera", "photos"]
+    },
+    "Filesystem": {
+      "iosExtraFileSystems": ["library", "library-nosync"]
+    },
+    "Dialog": {
+      "androidTheme": "Theme.AppCompat.Light.Dialog.Alert"
+    }
+  },
+  "cordova": {
+    "preferences": {
+      "ScrollEnabled": "false",
+      "android-minSdkVersion": "24",
+      "android-targetSdkVersion": "33",
+      "BackupWebStorage": "none",
+      "SplashMaintainAspectRatio": "true",
+      "FadeSplashScreenDuration": "300",
+      "SplashShowOnlyFirstTime": "false",
+      "SplashScreen": "screen",
+      "SplashScreenDelay": "3000",
+      "AndroidInsecureFileModeEnabled": "false",
+      "AndroidPersistentFileLocation": "Internal"
+    }
+  },
+  "ios": {
+    "contentInset": "automatic",
+    "preferredContentMode": "mobile",
+    "backgroundColor": "#FAFAF7",
+    "allowsLinkPreview": false,
+    "scrollEnabled": false,
+    "disableLogs": false,
+    "limitsNavigationsToAppBoundDomains": true
+  },
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false,
+    "initialFocus": false,
+    "loadOnStart": true,
+    "backgroundColor": "#FAFAF7"
+  }
+}

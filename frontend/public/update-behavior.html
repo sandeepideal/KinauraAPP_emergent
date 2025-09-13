@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>KinAura Update Behavior Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+            padding: 20px; 
+            background: linear-gradient(135deg, #fdfcfa, #f8f5f0);
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #B88E35;
+            padding-bottom: 20px;
+        }
+        .update-type {
+            background: #f0f9ff;
+            border: 2px solid #0ea5e9;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .immediate {
+            background: #f0fdf4;
+            border-color: #22c55e;
+        }
+        .cached {
+            background: #fef3c7;
+            border-color: #f59e0b;
+        }
+        .timeline {
+            background: #f8fafc;
+            border-left: 4px solid #B88E35;
+            padding: 15px 20px;
+            margin: 20px 0;
+        }
+        .code {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, #fdfcfa, #f1f0ec);
+            border: 1px solid #d4d4d8;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .immediate-indicator { background: #22c55e; }
+        .cached-indicator { background: #f59e0b; }
+        .manual-indicator { background: #ef4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 style="color: #B88E35; margin: 0;">🔄 KinAura Update System</h1>
+            <p style="color: #6b7280; margin: 10px 0 0 0;">How admin changes propagate to user devices</p>
+        </div>
+
+        <div class="update-type immediate">
+            <h3 style="color: #166534; margin-top: 0;">⚡ Immediate Updates (Real-time)</h3>
+            <p><strong>These changes appear instantly for users:</strong></p>
+            <ul>
+                <li>✅ New treatments/services added in admin panel</li>
+                <li>✅ New pictures/images uploaded to gallery</li>
+                <li>✅ Service descriptions, pricing changes</li>
+                <li>✅ Appointment availability updates</li>
+                <li>✅ User booking confirmations</li>
+                <li>✅ Admin-to-patient notifications</li>
+            </ul>
+            <p style="font-size: 14px; color: #166534;"><strong>Why immediate?</strong> This data comes directly from your backend API in real-time.</p>
+        </div>
+
+        <div class="update-type cached">
+            <h3 style="color: #92400e; margin-top: 0;">🔄 Cached Updates (10-15 minutes delay)</h3>
+            <p><strong>These changes may take up to 15 minutes:</strong></p>
+            <ul>
+                <li>🔄 Service metadata changes (if cached)</li>
+                <li>🔄 Large image galleries (if heavily cached)</li>
+                <li>🔄 App interface improvements</li>
+            </ul>
+            <p style="font-size: 14px; color: #92400e;"><strong>Cache Strategy:</strong> React Query caches data for performance, then auto-refreshes when stale.</p>
+        </div>
+
+        <div class="timeline">
+            <h4 style="color: #B88E35; margin-top: 0;">📱 User Experience Timeline:</h4>
+            <div style="font-size: 14px; line-height: 1.6;">
+                <strong>Admin adds new treatment at 2:00 PM</strong><br>
+                → 2:00 PM: Change saved to database<br>
+                → 2:00 PM: Users opening app see new treatment immediately<br>
+                → 2:00-2:15 PM: Users with cached data see update within 15 minutes<br>
+                → 2:00 PM+: All new visitors see change immediately
+            </div>
+        </div>
+
+        <div class="code">
+// Your app's caching strategy:
+useServices({
+  staleTime: 10 * 60 * 1000,  // 10 minutes
+  refetchOnWindowFocus: true,  // Updates when user returns
+  refetchOnReconnect: true,   // Updates when back online
+});
+
+// Result: Fresh data every 10 minutes + smart updates
+        </div>
+
+        <h3 style="color: #B88E35;">🚀 Update Triggers for Users:</h3>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4><span class="status-indicator immediate-indicator"></span>App Launch</h4>
+                <p>When users open the PWA, fresh data is automatically fetched from your backend API.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4><span class="status-indicator immediate-indicator"></span>Page Navigation</h4>
+                <p>Moving between sections (Services → Gallery → Bookings) triggers data refreshes.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4><span class="status-indicator cached-indicator"></span>Background Refresh</h4>
+                <p>App automatically checks for updates every 10-15 minutes when active.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h4><span class="status-indicator immediate-indicator"></span>Network Reconnect</h4>
+                <p>When device reconnects to internet, app immediately syncs latest changes.</p>
+            </div>
+        </div>
+
+        <div class="update-type" style="background: #fdf2f8; border-color: #ec4899;">
+            <h3 style="color: #be185d; margin-top: 0;">📱 Future: Native App Updates</h3>
+            <p><strong>If you deploy as native mobile app (iOS/Android):</strong></p>
+            <ul>
+                <li>✅ <strong>Content updates</strong> (treatments, images) - Still immediate</li>
+                <li>🔄 <strong>App features</strong> (new pages, buttons) - Require app store update</li>
+                <li>🔄 <strong>Design changes</strong> - Require app store update</li>
+            </ul>
+            <p style="font-size: 14px; color: #be185d;"><strong>Hybrid approach:</strong> Content via API (immediate) + App features via store updates (1-7 days approval)</p>
+        </div>
+
+        <div style="background: #f0fdf4; border: 2px solid #22c55e; border-radius: 12px; padding: 20px; margin-top: 30px; text-align: center;">
+            <h3 style="color: #166534; margin-top: 0;">✅ Your Current Setup: Perfect for Real-time Updates!</h3>
+            <p style="margin-bottom: 0; color: #166534;">PWA deployment means your admin changes are visible to users almost immediately, providing the best experience for a wellness platform where treatments and availability change frequently.</p>
+        </div>
+    </div>
+</body>
+</html>

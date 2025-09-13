@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkfrontend=self.webpackChunkfrontend||[]).push([[508],{2449:(e,n,t)=>{var c,s;t.d(n,{_:()=>s,k:()=>c}),function(e){e.Heavy="HEAVY",e.Medium="MEDIUM",e.Light="LIGHT"}(c||(c={})),function(e){e.Success="SUCCESS",e.Warning="WARNING",e.Error="ERROR"}(s||(s={}))},508:(e,n,t)=>{t.d(n,{Haptics:()=>a,ImpactStyle:()=>s.k});var c=t(5403),s=t(2449);const a=(0,c.F3)("Haptics",{web:()=>t.e(182).then(t.bind(t,4182)).then((e=>new e.HapticsWeb))})}}]);
+//# sourceMappingURL=508.3fde04dd.chunk.js.map
