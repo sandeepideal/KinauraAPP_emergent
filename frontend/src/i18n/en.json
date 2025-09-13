@@ -1,0 +1,228 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "retry": "Try Again",
+    "refresh": "Refresh"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "continueWithApple": "CONTINUE WITH APPLE",
+    "continueWithGoogle": "CONTINUE WITH GOOGLE",
+    "sessionExpired": "Your session has expired. Please log in again."
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "appointments": "My Bookings",
+    "services": "Services",
+    "resources": "Patient Resources",
+    "concierge": "KinAura Concierge",
+    "protocol": "Personalized Protocol",
+    "health": "Health Dashboard",
+    "longevity": "Longevity Scoreboard",
+    "questionnaires": "Questionnaires",
+    "menu": "Menu"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "wellnessTools": "Your Wellness Tools",
+    "nextAppointment": "Next Appointment",
+    "longevityScore": "Longevity Score",
+    "membershipTier": "Membership Tier",
+    "quickActions": "Quick Actions",
+    "bookAppointment": "Book Appointment",
+    "viewProtocol": "View Protocol",
+    "trackHealth": "Track Health"
+  },
+  "appointments": {
+    "title": "My Appointments",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "cancelled": "Cancelled",
+    "noAppointments": "No appointments found",
+    "bookFirst": "Book Your First Appointment",
+    "reschedule": "Reschedule",
+    "cancel": "Cancel",
+    "details": "Details",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "status": "Status",
+    "notes": "Notes"
+  },
+  "health": {
+    "title": "Your Wellness Tools",
+    "description": "Connect your devices and track your health metrics",
+    "connectedDevices": "Connected Devices",
+    "connectDevice": "Connect Device",
+    "noDevices": "No devices connected",
+    "connectToStart": "Connect your Apple Health or WHOOP to start tracking",
+    "recentMetrics": "Recent Metrics",
+    "exportData": "Export Data",
+    "noData": "No health data available",
+    "connectDeviceForData": "Connect a device to start seeing your metrics",
+    "lastSync": "Last sync",
+    "status": "Status",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "disconnect": "Disconnect",
+    "samples": "samples in 30 days",
+    "dayTrend": "30 Day Trend"
+  },
+  "services": {
+    "title": "Our Services",
+    "bookNow": "Book Now",
+    "learnMore": "Learn More",
+    "duration": "Duration",
+    "minutes": "minutes",
+    "benefits": "Benefits",
+    "description": "Description",
+    "price": "Price",
+    "category": "Category"
+  },
+  "protocol": {
+    "title": "Your Personalized Protocol",
+    "subtitle": "Based on Your Unique Biology",
+    "description": "Your precision wellness protocol, powered by advanced genomic analysis and biomarker optimization",
+    "pillars": {
+      "genomic": "Genomic Analysis",
+      "biomarker": "Biomarker Optimization", 
+      "lifestyle": "Lifestyle Integration"
+    }
+  },
+  "errors": {
+    "generic": "An unexpected error occurred",
+    "network": "Network error - please check your connection",
+    "notFound": "Page not found",
+    "unauthorized": "You are not authorized to access this page",
+    "forbidden": "Access denied",
+    "serverError": "Server error - please try again later",
+    "validationError": "Please check your input and try again"
+  },
+  "notifications": {
+    "appointmentBooked": "Appointment booked successfully",
+    "appointmentCancelled": "Appointment cancelled",
+    "dataExported": "Data exported successfully",
+    "deviceConnected": "Device connected successfully",
+    "deviceDisconnected": "Device disconnected"
+  },
+  "rag": {
+    "systemName": "KinAura AI Concierge",
+    "systemDescription": "Regenerative Medicine Expert",
+    "welcomeMessage": "Welcome to KinAura! 🌟 I'm here to help you with information about our regenerative medicine treatments. How can I assist you today?",
+    "thinkingMessage": "KinAura is thinking...",
+    "sources": {
+      "show": "Show {{count}} sources",
+      "hide": "Hide sources",
+      "similarity": "{{percentage}}% match"
+    },
+    "confidence": {
+      "high": "High confidence",
+      "medium": "Medium confidence", 
+      "low": "Low confidence"
+    },
+    "disclaimer": "This information does not replace medical consultation. KinAura protocols are validated by clinicians.",
+    "consultationRecommended": "Personalized consultation recommended",
+    "protocolRecommended": "Recommended Protocol",
+    "suggestedQuestions": "Suggested questions:",
+    "quickActions": {
+      "book": "📅 Book Now",
+      "treatments": "🏥 Treatments",
+      "contact": "📞 Contact"
+    }
+  },
+  "auth": {
+    "secureLogin": "Secure Login",
+    "loginWithCookies": "Login (Web)",
+    "loginWithTokens": "Login (Mobile)",
+    "tokenRefresh": "Refreshing session...",
+    "secureLogout": "Secure Logout",
+    "sessionExpired": "Session expired, please login again",
+    "csrfError": "Security validation failed, please refresh and try again",
+    "authStorageType": "Authentication: {{type}}"
+  },
+  "admin": {
+    "accessDenied": "Admin access denied",
+    "mobileRestriction": "Admin features are not available on mobile devices",
+    "webOnly": "This feature is only available on web",
+    "analytics": {
+      "title": "RAG Analytics",
+      "overview": "System Overview",
+      "totalSessions": "Total Sessions",
+      "avgConfidence": "Average Confidence",
+      "knowledgeCoverage": "Knowledge Coverage",
+      "unresolvedQueries": "Unresolved Queries",
+      "trends": "Trends"
+    },
+    "unresolvedQueries": {
+      "title": "Unresolved Queries",
+      "description": "Review queries where the chatbot had low confidence",
+      "markResolved": "Mark as Resolved",
+      "confidence": "{{percentage}}% confident",
+      "suggestedTopics": "Suggested topics:",
+      "noQueries": "No unresolved queries - great job!"
+    },
+    "knowledgeGaps": {
+      "title": "Knowledge Gaps Analysis", 
+      "description": "Identify topics that need more knowledge base content",
+      "frequency": "{{count}} queries",
+      "priority": {
+        "high": "High Priority",
+        "medium": "Medium Priority",
+        "low": "Low Priority"
+      },
+      "noGaps": "No knowledge gaps identified - excellent coverage!"
+    },
+    "ragTest": {
+      "title": "Test RAG System",
+      "inputPlaceholder": "Enter a test query to see how the RAG system responds...",
+      "testButton": "Test RAG Response",
+      "response": "Response:",
+      "sourcesFound": "Sources Found:",
+      "responseTime": "Response Time:"
+    }
+  },
+  "mobile": {
+    "permissions": {
+      "camera": "Camera access is required to scan documents and upload clinical images",
+      "photos": "Photo access is needed for medical document uploads",
+      "location": "Location access helps verify clinic proximity for appointments",
+      "microphone": "Microphone access allows voice notes for treatment records",
+      "health": "Health data integration enables personalized treatment protocols"
+    },
+    "network": {
+      "offline": "You're offline - showing cached content",
+      "reconnecting": "Reconnecting to KinAura servers...",
+      "syncComplete": "Content synchronized"
+    },
+    "storage": {
+      "secureStorageEnabled": "Secure storage active",
+      "tokensProtected": "Your authentication is secure"
+    }
+  },
+  "security": {
+    "httpsRequired": "Secure connection required",
+    "mixedContentBlocked": "Insecure content blocked for your protection",
+    "certificateError": "Certificate validation failed"
+  }
+}

@@ -1,0 +1,839 @@
+/* Logo styling - Ensure transparent background */
+.ka-logo img {
+  display: block;
+  background: transparent !important;
+}
+
+.App {
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F5F4F0; /* Cream/beige background from Figma */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #F5F4F0; /* Cream/beige background */
+}
+
+/* Kintsugi Golden Lines - SVG patterns */
+.kintsugi-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.kintsugi-lines svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.kintsugi-gold {
+  stroke: #D4AF37;
+  stroke-width: 2;
+  fill: none;
+  opacity: 0.6;
+}
+
+/* Content should be above Kintsugi lines */
+.content-above-kintsugi {
+  position: relative;
+  z-index: 2;
+}
+
+/* Luxury Dashboard Styles */
+.luxury-gradient-bg {
+  background: linear-gradient(135deg, #fdfcfb 0%, #f8f6f3 25%, #f5f3f0 50%, #f2f0ed 75%, #efebe8 100%);
+}
+
+.luxury-texture {
+  background-image: 
+    radial-gradient(circle at 1px 1px, rgba(184, 146, 90, 0.03) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+.luxury-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 20px;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.04),
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.luxury-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.06),
+    0 3px 10px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 0 0 1px rgba(212, 175, 55, 0.2);
+}
+
+.gold-shimmer {
+  background: linear-gradient(
+    135deg,
+    #d4af37 0%,
+    #f4e04d 25%,
+    #d4af37 50%,
+    #b8925a 75%,
+    #d4af37 100%
+  );
+  background-size: 200% 200%;
+  animation: goldShimmer 3s ease-in-out infinite;
+}
+
+@keyframes goldShimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.luxury-progress-ring {
+  filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.2));
+}
+
+.treatment-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(248,246,243,0.8) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: 16px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.treatment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.treatment-card.completed::before {
+  opacity: 1;
+}
+
+.treatment-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.1);
+}
+
+.membership-foil {
+  background: linear-gradient(135deg, 
+    rgba(212, 175, 55, 0.1) 0%,
+    rgba(244, 224, 77, 0.08) 25%,
+    rgba(212, 175, 55, 0.12) 50%,
+    rgba(184, 146, 90, 0.08) 75%,
+    rgba(212, 175, 55, 0.1) 100%
+  );
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 
+    0 4px 15px rgba(212, 175, 55, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.service-icon-card {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.service-icon-card:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(212, 175, 55, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+}
+
+.gold-underline {
+  position: relative;
+}
+
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.8), transparent);
+  animation: underlineShimmer 2s ease-in-out infinite;
+}
+
+@keyframes underlineShimmer {
+  0%, 100% { transform: scaleX(0.5); opacity: 0.6; }
+  50% { transform: scaleX(1); opacity: 1; }
+}
+
+/* Subtle animations */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-animation > * {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.stagger-animation > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-animation > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-animation > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-animation > *:nth-child(4) { animation-delay: 0.4s; }
+
+/* Typography enhancements */
+.luxury-serif {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+}
+
+.luxury-sans {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-feature-settings: 'kern' 1, 'liga' 1, 'clig' 1, 'calt' 1;
+}
+
+.text-refined {
+  letter-spacing: 0.025em;
+  line-height: 1.5;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F5F4F0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B8941F;
+}
+
+/* Smooth transitions */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Focus states */
+button:focus,
+input:focus {
+  outline: 2px solid #D4AF37;
+  outline-offset: 2px;
+}
+
+/* Loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* KinAura brand colors */
+.text-gold {
+  color: #D4AF37;
+}
+
+.border-gold {
+  border-color: #D4AF37;
+}
+
+.bg-gold {
+  background-color: #D4AF37;
+}
+
+.bg-cream {
+  background-color: #F5F4F0;
+}
+
+.hover\:text-gold:hover {
+  color: #D4AF37;
+}
+
+.hover\:border-gold:hover {
+  border-color: #D4AF37;
+}
+
+.hover\:bg-gold:hover {
+  background-color: #D4AF37;
+}
+
+/* Black pill button style from Figma */
+.pill-button {
+  background-color: #000000;
+  color: white;
+  border-radius: 25px;
+  padding: 12px 24px;
+  border: none;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.pill-button:hover {
+  background-color: #333333;
+}
+
+/* European price formatting */
+.european-price::after {
+  content: "€";
+}
+
+/* Typography from Figma */
+.kinaura-heading {
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.kinaura-subheading {
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.kinaura-body {
+  font-weight: 300;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* Floating action buttons */
+.floating-action {
+  position: fixed;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.floating-action:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.floating-chat {
+  bottom: 100px;
+  right: 20px;
+}
+
+.floating-calendar {
+  bottom: 30px;
+  right: 20px;
+}
+
+/* Responsive design helpers */
+@media (max-width: 640px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Treatment list styling */
+.treatment-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.treatment-item:last-child {
+  border-bottom: none;
+}
+
+/* Section headers */
+.section-header {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 8px 16px;
+  margin: 16px -16px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Header styling to match Figma */
+.app-header {
+  background-color: #F5F4F0;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.kinaura-logo-text {
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: black;
+}
+
+/* Hamburger menu */
+.hamburger-menu {
+  display: flex !important;
+  flex-direction: column;
+  width: 40px !important;
+  height: 32px !important;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 6px !important;
+  background: rgba(255, 255, 255, 0.2) !important; /* Subtle white background */
+  border: 2px solid #000000 !important; /* Black border for visibility */
+  border-radius: 8px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative !important; /* Changed back to relative */
+  z-index: 1000 !important;
+  transition: all 0.3s ease !important;
+}
+
+.hamburger-menu:hover {
+  transform: scale(1.1);
+}
+
+.hamburger-line {
+  width: 100% !important;
+  height: 4px !important;
+  background-color: #000000 !important; /* Black lines */
+  background: #000000 !important; 
+  border: 1px solid #000000 !important; 
+  opacity: 1 !important; 
+  display: block !important; 
+  visibility: visible !important; 
+  position: relative !important; 
+  z-index: 999 !important; 
+  border-radius: 2px !important;
+  margin: 2px 0 !important; 
+}
+
+/* Book appointment button styling */
+.book-appointment-btn {
+  background-color: transparent;
+  border: 1px solid black;
+  color: black;
+  border-radius: 25px;
+  padding: 12px 32px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.book-appointment-btn:hover {
+  background-color: black;
+  color: white;
+}
+
+/* Card styling for cream background */
+.cream-card {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* KinAura Chatbot - Force maximum z-index to override any platform overlays */
+button[aria-label="Open KinAura Concierge"] {
+  z-index: 999999 !important;
+  position: fixed !important;
+  pointer-events: auto !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Ensure chatbot container is always on top */
+.fixed.bottom-4.right-4 {
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+
+/* Force any platform overlays to allow pointer events for our chatbot */
+/* Hide any Emergent platform branding */
+[data-test-id*="emergent"],
+[class*="emergent"],
+[id*="emergent"],
+a[href*="emergent"],
+[aria-label*="emergent" i],
+[title*="emergent" i] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  left: -9999px !important;
+}
+
+/* Hide any "Made with" or "Powered by" branding */
+*:contains("Made with Emergent"),
+*:contains("Powered by Emergent"),
+*:contains("emergent.sh"),
+a[href*="emergent.sh"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Re-enable pointer events for actual content inside platform elements */
+[data-test-id*="emergent"] button,
+[data-test-id*="emergent"] input,
+[data-test-id*="emergent"] a,
+[class*="emergent"] button:not([aria-label="Open KinAura Concierge"]),
+[class*="emergent"] input,
+[class*="emergent"] a,
+[id*="emergent"] button:not([aria-label="Open KinAura Concierge"]),
+[id*="emergent"] input,
+[id*="emergent"] a {
+  pointer-events: auto !important;
+}
+
+/* Global CSS overrides for PatientChatbot */
+.patient-chatbot-container {
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+}
+
+.patient-chatbot-container * {
+  pointer-events: auto !important;
+}
+/* Hide Made with Emergent branding badge */
+[data-testid="emergent-ui-badge"],
+.emergent-ui-badge,
+[class*="emergent"],
+[class*="Emergent"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Content Sync Status Indicator */
+.content-sync-indicator {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(200, 162, 90, 0.3);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #666;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.content-sync-indicator:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.sync-icon {
+  font-size: 10px;
+  animation: pulse 2s infinite;
+}
+
+.sync-text {
+  color: #333;
+  white-space: nowrap;
+}
+
+.sync-time {
+  color: #999;
+  font-size: 10px;
+}
+
+.sync-changes {
+  animation: bounce 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-3px); }
+  60% { transform: translateY(-2px); }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .content-sync-indicator {
+    top: 50px;
+    right: 10px;
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+  
+  .sync-time {
+    display: none;
+  }
+}
+
+/* Loading Screen Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-out;
+}
+
+/* Enhanced loading animations */
+@keyframes gentlePulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-gentle-pulse {
+  animation: gentlePulse 2s infinite;
+}
+
+/* Luxury Wellness Tools Styling */
+.wellness-tool-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(200, 162, 90, 0.15);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.wellness-tool-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(200, 162, 90, 0.02) 0%, rgba(200, 162, 90, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.wellness-tool-card:hover::before {
+  opacity: 1;
+}
+
+.wellness-tool-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(200, 162, 90, 0.15);
+  border-color: rgba(200, 162, 90, 0.3);
+}
+
+.wellness-tool-icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0 auto 1.25rem;
+  color: #C8A25A;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.wellness-tool-card:hover .wellness-tool-icon {
+  transform: scale(1.1);
+  color: #B8925A;
+}
+
+.wellness-tool-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2D2D2D;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.wellness-tool-card:hover .wellness-tool-title {
+  color: #1A1A1A;
+}
+
+/* Grid responsive adjustments */
+@media (max-width: 768px) {
+  .wellness-tool-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .wellness-tool-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .wellness-tool-title {
+    font-size: 0.85rem;
+  }
+}
+
+/* Staggered animation for wellness tools */
+.wellness-tool-card:nth-child(1) { animation-delay: 0.1s; }
+.wellness-tool-card:nth-child(2) { animation-delay: 0.15s; }
+.wellness-tool-card:nth-child(3) { animation-delay: 0.2s; }
+.wellness-tool-card:nth-child(4) { animation-delay: 0.25s; }
+.wellness-tool-card:nth-child(5) { animation-delay: 0.3s; }
+.wellness-tool-card:nth-child(6) { animation-delay: 0.35s; }
+.wellness-tool-card:nth-child(7) { animation-delay: 0.4s; }
+.wellness-tool-card:nth-child(8) { animation-delay: 0.45s; }
+
+/* Luxury styling for navigation elements */
+
+/* KinAura Loading Screen Animations */
+@keyframes loadingDots {
+  0%, 20% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+}
+
+.loading-dot {
+  animation: loadingDots 1.5s infinite ease-in-out;
+}
+
+.loading-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Proactive Notification Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+/* Enhanced chatbot integration */
+.chatbot-protocol-highlight {
+  background: linear-gradient(135deg, #C8A25A 0%, #E6C78A 100%);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}

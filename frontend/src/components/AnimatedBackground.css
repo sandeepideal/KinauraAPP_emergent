@@ -1,0 +1,105 @@
+/* KinAura Animated Background - Kintsugi Pulse */
+
+.ka-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: #FAFAF7;
+  overflow: hidden;
+}
+
+.ka-bg svg {
+  width: 120vw;
+  height: 120vh;
+  opacity: 0.45;
+  position: absolute;
+  top: -10vh;
+  left: -10vw;
+}
+
+.ka-bg .line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-width: 2;
+  stroke: url(#goldGrad);
+  filter: drop-shadow(0 0 1px rgba(207, 165, 68, 0.25));
+  animation: kaGlow 14s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.ka-bg .line:nth-child(2) {
+  animation-delay: 4.5s;
+}
+
+.ka-bg .line:nth-child(3) {
+  animation-delay: 7s;
+}
+
+.ka-bg .line:nth-child(4) {
+  animation-delay: 10.5s;
+}
+
+@keyframes kaGlow {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* Intensity variations - controlled by admin settings */
+.ka-bg[data-intensity="0"] .line {
+  animation: none;
+  opacity: 0.35;
+}
+
+.ka-bg[data-intensity="1"] .line {
+  animation-duration: 16s;
+}
+
+.ka-bg[data-intensity="2"] .line {
+  animation-duration: 14s;
+}
+
+.ka-bg[data-intensity="3"] .line {
+  animation-duration: 12s;
+}
+
+.ka-bg[data-intensity="3"] .line {
+  filter: drop-shadow(0 0 2px rgba(207, 165, 68, 0.35));
+}
+
+/* Palette variations */
+.ka-bg[data-palette="gold500"] .line {
+  stroke: url(#goldGrad500);
+}
+
+.ka-bg[data-palette="gold600"] .line {
+  stroke: url(#goldGrad600);
+}
+
+/* Hero-only scope */
+.ka-bg[data-scope="heroOnly"] {
+  position: absolute;
+  height: 100vh;
+  clip: rect(0, auto, 100vh, 0);
+}
+
+/* Accessibility - Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .ka-bg .line {
+    animation: none !important;
+    opacity: 0.45;
+  }
+}
+
+/* Fallback for browsers without CSS support */
+.ka-bg-fallback {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: #FAFAF7;
+  opacity: 0.3;
+}

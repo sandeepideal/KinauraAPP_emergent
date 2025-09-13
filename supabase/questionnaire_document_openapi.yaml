@@ -1,0 +1,1578 @@
+openapi: 3.0.3
+info:
+  title: KinAura Questionnaire and Document Management API
+  description: |
+    Comprehensive API for managing patient questionnaires and documents within the KinAura regenerative wellness platform.
+    
+    This API provides:
+    - **Questionnaire Management**: Create, manage, and assign questionnaires to patients
+    - **Question Types**: Support for text, multiple choice, rating scales, dates, and more
+    - **Patient Completion**: Allow patients to complete assigned questionnaires
+    - **Document Management**: Handle treatment documents with digital signature capabilities
+    - **Assignment System**: Flexible assignment of questionnaires and documents to patients
+    - **Progress Tracking**: Monitor completion status and progress
+    - **Digital Signatures**: Secure document signing with audit trail
+    
+    ## Authentication
+    All endpoints require JWT bearer token authentication with appropriate role-based permissions:
+    - **Admin Endpoints**: Require `admin` role for questionnaire/document management
+    - **Patient Endpoints**: Require authenticated patient access to own data only
+    
+    ## Question Types Supported
+    - `text`: Short text input
+    - `long_text`: Multi-line text input  
+    - `multiple_choice`: Multiple selection options
+    - `single_choice`: Single selection from options
+    - `yes_no`: Boolean yes/no question
+    - `number`: Numeric input
+    - `date`: Date selection
+    - `rating_scale`: Numeric rating scale (1-10)
+    - `file_upload`: File attachment (future enhancement)
+    
+  version: 1.0.0
+  contact:
+    name: KinAura Development Team
+    email: api@kinaura.com
+    url: https://kinaura.com
+  license:
+    name: Proprietary
+    url: https://kinaura.com/license
+
+servers:
+  - url: https://api.kinaura.com/v1
+    description: Production server
+  - url: https://staging-api.kinaura.com/v1  
+    description: Staging server
+  - url: http://localhost:8001/api
+    description: Local development server
+
+security:
+  - bearerAuth: []
+
+paths:
+  # ====================================
+  # ADMIN QUESTIONNAIRE ENDPOINTS
+  # ====================================
+  
+  /admin/questionnaires:
+    get:
+      summary: Get all questionnaires
+      description: Retrieve a list of all questionnaires with assignment statistics
+      tags:
+        - Admin Questionnaires
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of questionnaires with statistics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/QuestionnaireWithStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+          
+    post:
+      summary: Create new questionnaire
+      description: Create a new questionnaire template
+      tags:
+        - Admin Questionnaires
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuestionnaireRequest'
+      responses:
+        '200':
+          description: Questionnaire created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateQuestionnaireResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  
+  /admin/questionnaires/{questionnaireId}:
+    get:
+      summary: Get questionnaire details
+      description: Retrieve detailed information about a specific questionnaire
+      tags:
+        - Admin Questionnaires
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/QuestionnaireId'
+      responses:
+        '200':
+          description: Questionnaire details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionnaireDetail'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+          
+    put:
+      summary: Update questionnaire
+      description: Update an existing questionnaire template
+      tags:
+        - Admin Questionnaires
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/QuestionnaireId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQuestionnaireRequest'
+      responses:
+        '200':
+          description: Questionnaire updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+          
+    delete:
+      summary: Delete questionnaire
+      description: Soft delete a questionnaire (marks as inactive)
+      tags:
+        - Admin Questionnaires
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/QuestionnaireId'
+      responses:
+        '200':
+          description: Questionnaire deleted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /admin/questionnaires/{questionnaireId}/questions:
+    post:
+      summary: Add question to questionnaire
+      description: Add a new question to an existing questionnaire
+      tags:
+        - Admin Questionnaires
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/QuestionnaireId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateQuestionRequest'
+      responses:
+        '200':
+          description: Question added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateQuestionResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /admin/questionnaires/assign:
+    post:
+      summary: Assign questionnaire to patient
+      description: Assign a questionnaire to a specific patient
+      tags:
+        - Admin Questionnaires
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignQuestionnaireRequest'
+      responses:
+        '200':
+          description: Questionnaire assigned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignQuestionnaireResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  # ====================================
+  # ADMIN DOCUMENT ENDPOINTS  
+  # ====================================
+  
+  /admin/documents:
+    get:
+      summary: Get all documents
+      description: Retrieve a list of all documents with assignment statistics
+      tags:
+        - Admin Documents
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of documents with statistics
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DocumentWithStats'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+          
+    post:
+      summary: Create new document
+      description: Create a new document template
+      tags:
+        - Admin Documents
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDocumentRequest'
+      responses:
+        '200':
+          description: Document created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDocumentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /admin/documents/assign:
+    post:
+      summary: Assign document to patient
+      description: Assign a document to a specific patient
+      tags:
+        - Admin Documents
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssignDocumentRequest'
+      responses:
+        '200':
+          description: Document assigned successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignDocumentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  # ====================================
+  # PATIENT QUESTIONNAIRE ENDPOINTS
+  # ====================================
+  
+  /patient/questionnaires:
+    get:
+      summary: Get assigned questionnaires
+      description: Get all questionnaires assigned to the current patient
+      tags:
+        - Patient Questionnaires
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of assigned questionnaires
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatientQuestionnaireAssignment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /patient/questionnaires/{assignmentId}:
+    get:
+      summary: Get questionnaire for completion
+      description: Get detailed questionnaire data for patient completion
+      tags:
+        - Patient Questionnaires
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AssignmentId'
+      responses:
+        '200':
+          description: Questionnaire data with questions and existing answers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestionnaireForCompletion'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /patient/questionnaires/{assignmentId}/start:
+    post:
+      summary: Start questionnaire
+      description: Mark questionnaire as started (in_progress status)
+      tags:
+        - Patient Questionnaires
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AssignmentId'
+      responses:
+        '200':
+          description: Questionnaire started successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /patient/questionnaires/{assignmentId}/answers:
+    post:
+      summary: Submit questionnaire answers
+      description: Submit or update answers for questionnaire questions
+      tags:
+        - Patient Questionnaires
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AssignmentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitAnswersRequest'
+      responses:
+        '200':
+          description: Answers submitted successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /patient/questionnaires/{assignmentId}/complete:
+    post:
+      summary: Complete questionnaire
+      description: Mark questionnaire as completed
+      tags:
+        - Patient Questionnaires
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AssignmentId'
+      responses:
+        '200':
+          description: Questionnaire completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  # ====================================
+  # PATIENT DOCUMENT ENDPOINTS
+  # ====================================
+  
+  /patient/documents:
+    get:
+      summary: Get assigned documents
+      description: Get all documents assigned to the current patient
+      tags:
+        - Patient Documents
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of assigned documents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PatientDocumentAssignment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /patient/documents/{assignmentId}:
+    get:
+      summary: Get document for viewing
+      description: Get document content for patient viewing
+      tags:
+        - Patient Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/DocumentAssignmentId'
+      responses:
+        '200':
+          description: Document content and details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentForViewing'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /patient/documents/{assignmentId}/view:
+    post:
+      summary: Mark document as viewed
+      description: Record that the patient has viewed the document
+      tags:
+        - Patient Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/DocumentAssignmentId'
+      responses:
+        '200':
+          description: Document marked as viewed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /patient/documents/{assignmentId}/sign:
+    post:
+      summary: Sign document
+      description: Digitally sign a document with audit trail
+      tags:
+        - Patient Documents
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/DocumentAssignmentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SignDocumentRequest'
+      responses:
+        '200':
+          description: Document signed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SignDocumentResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  # ====================================
+  # UNIFIED PATIENT TASKS ENDPOINT
+  # ====================================
+  
+  /patient/pending-tasks:
+    get:
+      summary: Get all pending tasks
+      description: Get unified list of pending questionnaires and documents
+      tags:
+        - Patient Tasks
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: List of all pending patient tasks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PendingTasksResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT Bearer token obtained from authentication endpoint
+
+  parameters:
+    QuestionnaireId:
+      name: questionnaireId
+      in: path
+      required: true
+      description: Unique identifier for the questionnaire
+      schema:
+        type: string
+        example: "med-history-001"
+        
+    AssignmentId:
+      name: assignmentId
+      in: path
+      required: true
+      description: Unique identifier for the questionnaire assignment
+      schema:
+        type: string
+        example: "pq-001"
+        
+    DocumentAssignmentId:
+      name: assignmentId
+      in: path
+      required: true
+      description: Unique identifier for the document assignment
+      schema:
+        type: string
+        example: "pd-001"
+
+  schemas:
+    # ====================================
+    # QUESTIONNAIRE SCHEMAS
+    # ====================================
+    
+    Question:
+      type: object
+      required:
+        - id
+        - question_text
+        - question_type
+        - is_required
+        - order_index
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the question
+          example: "q-001"
+        question_text:
+          type: string
+          description: The question text displayed to the patient
+          example: "What is your primary health concern?"
+        question_type:
+          type: string
+          enum: [text, long_text, multiple_choice, single_choice, yes_no, number, date, rating_scale, file_upload]
+          description: Type of question input
+          example: "long_text"
+        is_required:
+          type: boolean
+          description: Whether the question must be answered
+          example: true
+        order_index:
+          type: integer
+          description: Display order of the question (0-based)
+          example: 1
+        options:
+          type: object
+          description: Question-specific options (choices for multiple choice, min/max for rating, etc.)
+          example:
+            choices: ["Option A", "Option B", "Option C"]
+            allow_multiple: true
+        validation:
+          type: object
+          description: Validation rules for the question
+          example:
+            max_length: 500
+            min_value: 1
+        help_text:
+          type: string
+          description: Help text displayed to guide the patient
+          example: "Please describe in detail"
+
+    Questionnaire:
+      type: object
+      required:
+        - title
+        - category
+      properties:
+        _id:
+          type: string
+          description: Unique identifier for the questionnaire
+          example: "med-history-001"
+        title:
+          type: string
+          description: Questionnaire title
+          example: "Medical History Assessment"
+        description:
+          type: string
+          description: Description of the questionnaire purpose
+          example: "Comprehensive medical history to understand your health background"
+        category:
+          type: string
+          enum: [medical_history, privacy_disclosure, treatment_consent, pre_treatment, post_treatment, wellness_assessment, lifestyle, symptoms, preferences, other]
+          description: Category of the questionnaire
+          example: "medical_history"
+        is_active:
+          type: boolean
+          description: Whether the questionnaire is active
+          example: true
+        is_required:
+          type: boolean
+          description: Whether this questionnaire is required for all patients
+          example: false
+        instructions:
+          type: string
+          description: Instructions for completing the questionnaire
+          example: "Please answer all questions honestly and completely"
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+          description: Array of questions in the questionnaire
+        created_by:
+          type: string
+          description: ID of the user who created the questionnaire
+          example: "admin-001"
+        created_at:
+          type: string
+          format: date-time
+          description: When the questionnaire was created
+          example: "2024-12-15T09:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: When the questionnaire was last updated
+          example: "2024-12-15T09:00:00Z"
+        metadata:
+          type: object
+          description: Additional metadata for the questionnaire
+          example:
+            estimated_minutes: 15
+            department: "Clinical Assessment"
+
+    QuestionnaireWithStats:
+      allOf:
+        - $ref: '#/components/schemas/Questionnaire'
+        - type: object
+          properties:
+            question_count:
+              type: integer
+              description: Number of questions in the questionnaire
+              example: 8
+            assignments:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  description: Total number of assignments
+                  example: 25
+                completed:
+                  type: integer
+                  description: Number of completed assignments
+                  example: 18
+                pending:
+                  type: integer
+                  description: Number of pending assignments
+                  example: 7
+
+    QuestionnaireDetail:
+      allOf:
+        - $ref: '#/components/schemas/Questionnaire'
+        - type: object
+          properties:
+            recent_assignments:
+              type: array
+              items:
+                $ref: '#/components/schemas/PatientQuestionnaireAssignment'
+              description: Recent assignments of this questionnaire
+
+    CreateQuestionnaireRequest:
+      type: object
+      required:
+        - title
+        - category
+      properties:
+        title:
+          type: string
+          description: Questionnaire title
+          example: "Pre-Treatment Assessment"
+        description:
+          type: string
+          description: Description of the questionnaire
+          example: "Assessment required before treatment"
+        category:
+          type: string
+          enum: [medical_history, privacy_disclosure, treatment_consent, pre_treatment, post_treatment, wellness_assessment, lifestyle, symptoms, preferences, other]
+          example: "pre_treatment"
+        is_required:
+          type: boolean
+          description: Whether this questionnaire is required
+          default: false
+        instructions:
+          type: string
+          description: Instructions for patients
+          example: "Please complete all sections carefully"
+        metadata:
+          type: object
+          description: Additional metadata
+          example:
+            estimated_minutes: 10
+
+    CreateQuestionnaireResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        questionnaire_id:
+          type: string
+          description: ID of the created questionnaire
+          example: "quest-001"
+        message:
+          type: string
+          example: "Questionnaire created successfully"
+
+    UpdateQuestionnaireRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Updated Questionnaire Title"
+        description:
+          type: string
+          example: "Updated description"
+        is_active:
+          type: boolean
+          example: true
+        is_required:
+          type: boolean
+          example: false
+        instructions:
+          type: string
+          example: "Updated instructions"
+
+    CreateQuestionRequest:
+      type: object
+      required:
+        - questionnaire_id
+        - question_text
+        - question_type
+      properties:
+        questionnaire_id:
+          type: string
+          description: ID of the questionnaire to add the question to
+          example: "quest-001"
+        question_text:
+          type: string
+          description: The question text
+          example: "What is your age?"
+        question_type:
+          type: string
+          enum: [text, long_text, multiple_choice, single_choice, yes_no, number, date, rating_scale, file_upload]
+          example: "number"
+        is_required:
+          type: boolean
+          default: false
+        order_index:
+          type: integer
+          description: Order of the question
+          example: 1
+        options:
+          type: object
+          description: Question-specific options
+        validation:
+          type: object
+          description: Validation rules
+        help_text:
+          type: string
+          description: Help text for the question
+
+    CreateQuestionResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        question_id:
+          type: string
+          description: ID of the created question
+          example: "q-001"
+        message:
+          type: string
+          example: "Question added successfully"
+
+    AssignQuestionnaireRequest:
+      type: object
+      required:
+        - questionnaire_id
+        - patient_id
+      properties:
+        questionnaire_id:
+          type: string
+          description: ID of the questionnaire to assign
+          example: "quest-001"
+        patient_id:
+          type: string
+          description: ID of the patient to assign to
+          example: "patient-001"
+        due_date:
+          type: string
+          format: date-time
+          description: Due date for completion (optional)
+          example: "2024-12-25T23:59:59Z"
+        context:
+          type: object
+          description: Additional context for the assignment
+          example:
+            assigned_for: "Pre-treatment assessment"
+            priority: "high"
+
+    AssignQuestionnaireResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        assignment_id:
+          type: string
+          description: ID of the created assignment
+          example: "pq-001"
+        message:
+          type: string
+          example: "Questionnaire assigned successfully"
+
+    # ====================================
+    # PATIENT QUESTIONNAIRE SCHEMAS
+    # ====================================
+    
+    PatientQuestionnaireAssignment:
+      type: object
+      properties:
+        assignment_id:
+          type: string
+          description: ID of the assignment
+          example: "pq-001"
+        questionnaire:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "quest-001"
+            title:
+              type: string
+              example: "Medical History Assessment"
+            description:
+              type: string
+              example: "Comprehensive medical history questionnaire"
+            category:
+              type: string
+              example: "medical_history"
+            instructions:
+              type: string
+              example: "Please answer all questions honestly"
+            question_count:
+              type: integer
+              example: 8
+        status:
+          type: string
+          enum: [assigned, in_progress, completed, expired, cancelled]
+          example: "assigned"
+        assigned_at:
+          type: string
+          format: date-time
+          example: "2024-12-15T09:00:00Z"
+        due_date:
+          type: string
+          format: date-time
+          example: "2024-12-22T23:59:59Z"
+        started_at:
+          type: string
+          format: date-time
+          example: "2024-12-16T10:00:00Z"
+        completed_at:
+          type: string
+          format: date-time
+          example: "2024-12-16T11:30:00Z"
+
+    QuestionForCompletion:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "q-001"
+        text:
+          type: string
+          example: "What is your primary health concern?"
+        type:
+          type: string
+          example: "long_text"
+        required:
+          type: boolean
+          example: true
+        order:
+          type: integer
+          example: 1
+        options:
+          type: object
+          example:
+            max_length: 500
+        help_text:
+          type: string
+          example: "Please describe in detail"
+        current_answer:
+          type: object
+          properties:
+            text:
+              type: string
+              example: "Chronic fatigue and low energy"
+            choices:
+              type: array
+              items:
+                type: string
+              example: ["Choice A", "Choice B"]
+            number:
+              type: number
+              example: 7
+            date:
+              type: string
+              format: date
+              example: "1985-03-15"
+            answered_at:
+              type: string
+              format: date-time
+              example: "2024-12-16T10:30:00Z"
+
+    QuestionnaireForCompletion:
+      type: object
+      properties:
+        assignment_id:
+          type: string
+          example: "pq-001"
+        questionnaire:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Medical History Assessment"
+            description:
+              type: string
+              example: "Comprehensive medical history questionnaire"
+            instructions:
+              type: string
+              example: "Please answer all questions honestly"
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionForCompletion'
+        status:
+          type: string
+          enum: [assigned, in_progress, completed]
+          example: "in_progress"
+
+    Answer:
+      type: object
+      required:
+        - question_id
+      properties:
+        question_id:
+          type: string
+          description: ID of the question being answered
+          example: "q-001"
+        answer_text:
+          type: string
+          description: Text answer for text-based questions
+          example: "I have chronic fatigue"
+        answer_number:
+          type: number
+          description: Numeric answer for number/rating questions
+          example: 7
+        answer_date:
+          type: string
+          format: date
+          description: Date answer for date questions
+          example: "1985-03-15"
+        answer_choices:
+          type: array
+          items:
+            type: string
+          description: Selected choices for multiple choice questions
+          example: ["Choice A", "Choice C"]
+        answer_files:
+          type: array
+          items:
+            type: object
+          description: File attachments (future enhancement)
+
+    SubmitAnswersRequest:
+      type: object
+      required:
+        - patient_questionnaire_id
+        - answers
+      properties:
+        patient_questionnaire_id:
+          type: string
+          description: ID of the patient questionnaire assignment
+          example: "pq-001"
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Answer'
+          description: Array of answers to submit
+
+    # ====================================
+    # DOCUMENT SCHEMAS
+    # ====================================
+    
+    Document:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "doc-001"
+        title:
+          type: string
+          example: "Privacy Notice"
+        document_type:
+          type: string
+          enum: [consent_form, privacy_notice, treatment_info, waiver, terms_conditions, medical_disclosure, financial_agreement, other]
+          example: "privacy_notice"
+        content:
+          type: string
+          description: HTML content of the document
+          example: "<h1>Privacy Notice</h1><p>Your privacy is important...</p>"
+        version:
+          type: string
+          example: "1.0"
+        is_active:
+          type: boolean
+          example: true
+        requires_signature:
+          type: boolean
+          example: true
+        settings:
+          type: object
+          example:
+            signature_required: true
+            legal_document: true
+        created_by:
+          type: string
+          example: "admin-001"
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-12-15T08:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          example: "2024-12-15T08:00:00Z"
+
+    DocumentWithStats:
+      allOf:
+        - $ref: '#/components/schemas/Document'
+        - type: object
+          properties:
+            assignments:
+              type: object
+              properties:
+                total:
+                  type: integer
+                  example: 15
+                signed:
+                  type: integer
+                  example: 12
+                pending:
+                  type: integer
+                  example: 3
+
+    CreateDocumentRequest:
+      type: object
+      required:
+        - title
+        - document_type
+        - content
+      properties:
+        title:
+          type: string
+          example: "Treatment Consent Form"
+        document_type:
+          type: string
+          enum: [consent_form, privacy_notice, treatment_info, waiver, terms_conditions, medical_disclosure, financial_agreement, other]
+          example: "consent_form"
+        content:
+          type: string
+          description: HTML content of the document
+          example: "<h1>Treatment Consent</h1><p>I consent to...</p>"
+        version:
+          type: string
+          default: "1.0"
+        requires_signature:
+          type: boolean
+          default: true
+        settings:
+          type: object
+          example:
+            legal_document: true
+
+    CreateDocumentResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        document_id:
+          type: string
+          example: "doc-001"
+        message:
+          type: string
+          example: "Document created successfully"
+
+    AssignDocumentRequest:
+      type: object
+      required:
+        - document_id
+        - patient_id
+      properties:
+        document_id:
+          type: string
+          example: "doc-001"
+        patient_id:
+          type: string
+          example: "patient-001"
+        expires_in_days:
+          type: integer
+          description: Number of days until the assignment expires
+          example: 30
+        context:
+          type: object
+          example:
+            assignment_reason: "Required for treatment"
+
+    AssignDocumentResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        assignment_id:
+          type: string
+          example: "pd-001"
+        message:
+          type: string
+          example: "Document assigned successfully"
+
+    PatientDocumentAssignment:
+      type: object
+      properties:
+        assignment_id:
+          type: string
+          example: "pd-001"
+        document:
+          type: object
+          properties:
+            id:
+              type: string
+              example: "doc-001"
+            title:
+              type: string
+              example: "Privacy Notice"
+            document_type:
+              type: string
+              example: "privacy_notice"
+            version:
+              type: string
+              example: "1.0"
+            requires_signature:
+              type: boolean
+              example: true
+        status:
+          type: string
+          enum: [assigned, viewed, signed, expired, cancelled]
+          example: "assigned"
+        assigned_at:
+          type: string
+          format: date-time
+          example: "2024-12-15T09:00:00Z"
+        viewed_at:
+          type: string
+          format: date-time
+          example: "2024-12-15T14:00:00Z"
+        signed_at:
+          type: string
+          format: date-time
+          example: "2024-12-15T14:05:00Z"
+        expires_at:
+          type: string
+          format: date-time
+          example: "2025-01-15T23:59:59Z"
+
+    DocumentForViewing:
+      type: object
+      properties:
+        assignment_id:
+          type: string
+          example: "pd-001"
+        document:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Privacy Notice"
+            document_type:
+              type: string
+              example: "privacy_notice"
+            content:
+              type: string
+              example: "<h1>Privacy Notice</h1><p>Your privacy...</p>"
+            version:
+              type: string
+              example: "1.0"
+            requires_signature:
+              type: boolean
+              example: true
+        status:
+          type: string
+          example: "assigned"
+        expires_at:
+          type: string
+          format: date-time
+          example: "2025-01-15T23:59:59Z"
+
+    SignDocumentRequest:
+      type: object
+      required:
+        - signature_data
+      properties:
+        signature_data:
+          type: string
+          description: The signature data (typed name, base64 image, etc.)
+          example: "John Doe"
+        signature_type:
+          type: string
+          enum: [canvas, typed, uploaded, electronic]
+          default: "typed"
+          example: "typed"
+
+    SignDocumentResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        signature_id:
+          type: string
+          example: "sig-001"
+        message:
+          type: string
+          example: "Document signed successfully"
+        signed_at:
+          type: string
+          format: date-time
+          example: "2024-12-15T14:05:00Z"
+
+    # ====================================
+    # UNIFIED TASKS SCHEMAS
+    # ====================================
+    
+    PendingTask:
+      type: object
+      properties:
+        task_type:
+          type: string
+          enum: [questionnaire, document]
+          example: "questionnaire"
+        task_id:
+          type: string
+          description: Assignment ID for the task
+          example: "pq-001"
+        title:
+          type: string
+          example: "Medical History Assessment"
+        description:
+          type: string
+          example: "Comprehensive medical history questionnaire"
+        assigned_at:
+          type: string
+          format: date-time
+          example: "2024-12-15T09:00:00Z"
+        due_date:
+          type: string
+          format: date-time
+          example: "2024-12-22T23:59:59Z"
+        priority:
+          type: string
+          enum: [urgent, high, normal, low]
+          example: "high"
+        estimated_duration:
+          type: integer
+          description: Estimated completion time in minutes  
+          example: 15
+
+    PendingTasksResponse:
+      type: object
+      properties:
+        tasks:
+          type: array
+          items:
+            $ref: '#/components/schemas/PendingTask'
+        summary:
+          type: object
+          properties:
+            total_tasks:
+              type: integer
+              example: 5
+            questionnaires:
+              type: integer
+              example: 3
+            documents:
+              type: integer
+              example: 2
+            urgent_tasks:
+              type: integer
+              example: 1
+            estimated_total_minutes:
+              type: integer
+              example: 45
+
+    # ====================================
+    # COMMON RESPONSE SCHEMAS
+    # ====================================
+    
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Operation completed successfully"
+
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          description: Error type
+          example: "validation_error"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Invalid input provided"
+        details:
+          type: object
+          description: Additional error details
+          example:
+            field: "title"
+            reason: "Title is required"
+
+  responses:
+    # ====================================
+    # COMMON RESPONSES
+    # ====================================
+    
+    BadRequest:
+      description: Bad request - invalid input
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "bad_request"
+            message: "Invalid request parameters"
+            
+    Unauthorized:
+      description: Unauthorized - invalid or missing authentication
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "unauthorized"
+            message: "Authentication required"
+            
+    Forbidden:
+      description: Forbidden - insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "forbidden"
+            message: "Admin access required"
+            
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "not_found"
+            message: "Requested resource not found"
+            
+    ValidationError:
+      description: Validation error - invalid data format
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "validation_error"
+            message: "Data validation failed"
+            details:
+              field: "email"
+              reason: "Invalid email format"
+              
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            success: false
+            error: "internal_error"
+            message: "An unexpected error occurred"
+
+tags:
+  - name: Admin Questionnaires
+    description: Administrative questionnaire management endpoints
+  - name: Admin Documents  
+    description: Administrative document management endpoints
+  - name: Patient Questionnaires
+    description: Patient questionnaire completion endpoints
+  - name: Patient Documents
+    description: Patient document viewing and signing endpoints
+  - name: Patient Tasks
+    description: Unified patient task management endpoints

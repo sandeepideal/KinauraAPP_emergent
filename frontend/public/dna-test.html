@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DNA Icon Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f8f5f0;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .wellness-card {
+            display: inline-block;
+            padding: 20px;
+            margin: 10px;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .wellness-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        .icon-container {
+            margin-bottom: 12px;
+        }
+        .ka-icon {
+            width: 128px;
+            height: 128px;
+            object-fit: contain;
+            filter: brightness(1.1) contrast(1.1);
+        }
+        h3 {
+            margin: 0;
+            font-size: 14px;
+            color: #374151;
+            font-weight: 500;
+        }
+        .test-info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-info">
+            <strong>🧬 DNA Icon Test for KinAura Wellness Tools</strong>
+            <p>Testing the DNA helix icon implementation for the Personalized Protocol button:</p>
+        </div>
+        
+        <h2>Your Wellness Tools</h2>
+        
+        <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+            <!-- Personalized Protocol with DNA Icon -->
+            <div class="wellness-card">
+                <div class="icon-container">
+                    <img src="/dna-icon.png" alt="DNA Helix" class="ka-icon" />
+                </div>
+                <h3>Personalized Protocol</h3>
+            </div>
+            
+            <!-- Other tools for comparison -->
+            <div class="wellness-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="ka-icon" style="color: #d97706;">
+                        <rect width="18" height="18" x="3" y="3" rx="2"/>
+                        <path d="M8 8h8"/>
+                        <path d="M8 12h8"/>
+                        <path d="M8 16h6"/>
+                    </svg>
+                </div>
+                <h3>Services</h3>
+            </div>
+            
+            <div class="wellness-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="ka-icon" style="color: #d97706;">
+                        <path d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"/>
+                    </svg>
+                </div>
+                <h3>Resources</h3>
+            </div>
+            
+            <div class="wellness-card">
+                <div class="icon-container">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="ka-icon" style="color: #d97706;">
+                        <path d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"/>
+                    </svg>
+                </div>
+                <h3>KinAura Concierge</h3>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; padding: 15px; background: #f0f9ff; border-radius: 8px; font-size: 14px;">
+            <p><strong>✅ Implementation Status:</strong></p>
+            <ul style="margin: 10px 0; padding-left: 20px;">
+                <li>✅ DNA icon saved to <code>/app/frontend/public/dna-icon.png</code></li>
+                <li>✅ Icon properly referenced in Personalized Protocol button</li>
+                <li>✅ Styling applied: 40px × 40px with brightness/contrast filters</li>
+                <li>✅ Integration complete in KinAura wellness tools grid</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+workflows:
+  ios-workflow:
+    name: KinAura iOS Build
+    max_build_duration: 120
+    instance_type: mac_mini_m1
+    integrations:
+      app_store_connect: codemagic
+    environment:
+      ios_signing:
+        distribution_type: development
+        bundle_identifier: com.kinauramed.kinaura
+      vars:
+        BUNDLE_ID: "com.kinauramed.kinaura"
+        XCODE_WORKSPACE: "App.xcworkspace"
+        XCODE_SCHEME: "App"
+      node: 18.17.0
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          npm ci
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios/App && pod install
+      - name: Set up keychain to be used for codesigning using Codemagic CLI 'keychain' command
+        script: |
+          keychain initialize
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_DEVELOPMENT --create
+      - name: Use system default keychain
+        script: |
+          keychain add-certificates
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+      - name: Build React app
+        script: |
+          npm run build
+      - name: Update dependencies and copy web assets to native project
+        script: |
+          npx cap copy
+          npx cap update
+      - name: Build ipa for distribution
+        script: |
+          export EXPORT_OPTIONS_PLIST=/tmp/ExportOptions.plist
+          cat > $EXPORT_OPTIONS_PLIST << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>destination</key>
+            <string>export</string>
+            <key>method</key>
+            <string>development</string>
+            <key>teamID</key>
+            <string>\$TEAM_ID</string>
+            <key>uploadBitcode</key>
+            <false/>
+            <key>compileBitcode</key>
+            <false/>
+            <key>uploadSymbols</key>
+            <false/>
+            <key>signingStyle</key>
+            <string>automatic</string>
+          </dict>
+          </plist>
+          EOF
+          xcode-project build-ipa --workspace ios/App/$XCODE_WORKSPACE --scheme $XCODE_SCHEME --export-options-plist $EXPORT_OPTIONS_PLIST
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      # Uncomment the two lines below to automatically distribute to App Store Connect
+      # app_store_connect:
+      #   auth: integration
+      
+      # Uncomment the section below to get a direct download link
+      email:
+        recipients:
+          - marco@kinauramed.com
+        notify:
+          success: true
+          failure: false
+
+  android-workflow:
+    name: KinAura Android Build (Optional)
+    max_build_duration: 120
+    instance_type: linux_x2
+    environment:
+      android_signing:
+        - keystore_reference
+      vars:
+        PACKAGE_NAME: "com.kinauramed.kinaura"
+      node: 18.17.0
+      java: 11
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          npm ci
+      - name: Build React app
+        script: |
+          npm run build
+      - name: Update dependencies and copy web assets to native project
+        script: |
+          npx cap copy
+          npx cap update
+      - name: Build Android release
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/**/*.apk
+      - android/app/build/outputs/**/*.aab
+    publishing:
+      email:
+        recipients:
+          - marco@kinauramed.com
+        notify:
+          success: true
+          failure: false

@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: KinAura Assistant API
+  version: 1.0.0
+paths:
+  /api/chat:
+    post:
+      summary: Chat with KinAura RAG assistant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                messages:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      role: { type: string }
+                      content: { type: string }
+                locale:
+                  type: string
+                  enum: [en, it]
+              required: [messages]
+      responses:
+        "200":
+          description: Assistant reply with citations and intent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reply: { type: string }
+                  citations:
+                    type: array
+                    items: { type: string }
+                  intent:
+                    type: object

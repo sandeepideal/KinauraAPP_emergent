@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Development configuration - allows HTTP for local testing -->
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Android emulator loopback -->
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <!-- Local development -->
+        <domain includeSubdomains="true">localhost</domain>
+        <!-- Local network -->
+        <domain includeSubdomains="true">192.168.1.0/24</domain>
+        <domain includeSubdomains="true">192.168.0.0/24</domain>
+        <!-- Development preview domain -->
+        <domain includeSubdomains="true">golden-health-1.preview.emergentagent.com</domain>
+    </domain-config>
+    
+    <!-- Production domains - HTTPS only -->
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">kinaura.med</domain>
+        <domain includeSubdomains="true">api.kinaura.med</domain>
+        <domain includeSubdomains="true">kinauramed.com</domain>
+    </domain-config>
+    
+    <!-- Base configuration for all other domains -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Trust system CAs -->
+            <certificates src="system"/>
+        </trust-anchors>
+    </base-config>
+</network-security-config>

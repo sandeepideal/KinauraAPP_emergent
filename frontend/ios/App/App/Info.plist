@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+        <string>KinAura</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+	
+	<!-- Camera and Photo Library Permissions -->
+	<key>NSCameraUsageDescription</key>
+	<string>Camera access is required to scan documents and upload clinical images securely for your medical records.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We save images you capture for your clinical records and treatment documentation.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Photo library access lets you upload required medical documents and treatment photos.</string>
+	
+	<!-- Location Services (for appointment check-ins) -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Location access helps verify your proximity to KinAura clinic for appointment check-ins.</string>
+	
+	<!-- Microphone (for voice notes) -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Microphone access allows you to record voice notes for your treatment journal.</string>
+	
+	<!-- Push Notifications -->
+	<key>aps-environment</key>
+	<string>development</string>
+	
+	<!-- File Access -->
+	<key>NSDocumentPickerUsageDescription</key>
+	<string>Document access allows you to upload medical reports and test results securely.</string>
+	
+	<!-- HealthKit Integration -->
+	<key>NSHealthShareUsageDescription</key>
+	<string>HealthKit access allows KinAura to integrate with your health data for personalized treatment protocols.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>HealthKit integration helps track your treatment progress and wellness metrics.</string>
+	
+	<!-- Network Security -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<!-- Development exception - remove for production -->
+			<key>localhost</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+			</dict>
+			<!-- Golden Health Preview Exception - remove for production -->
+			<key>golden-health-1.preview.emergentagent.com</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.2</string>
+			</dict>
+		</dict>
+	</dict>
+	
+	<!-- Supported URL Schemes -->
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.kinauramed.kinaura</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kinaura</string>
+				<string>com.kinauramed.kinaura</string>
+			</array>
+		</dict>
+	</array>
+	
+	<!-- Background Modes for Push Notifications -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>background-processing</string>
+		<string>remote-notification</string>
+	</array>
+</dict>
+</plist>

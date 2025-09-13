@@ -1,0 +1,847 @@
+/* KinAura Luxury Theme System */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand palette */
+  --ka-gold-50: #FFF9E9;
+  --ka-gold-100: #F8EFD2;
+  --ka-gold-200: #F0E2AF;
+  --ka-gold-300: #E6CF84;
+  --ka-gold-400: #DDBA5A;
+  --ka-gold-500: #CFA544;
+  --ka-gold-600: #B88E35;
+  --ka-gold-700: #8F6E2A;
+  --ka-gold-800: #6B531F;
+  --ka-gold-900: #4C3B15;
+
+  --ka-ivory-100: #FAFAF7;
+  --ka-ivory-200: #F5F3ED;
+  --ka-ivory-300: #EEEADF;
+  --ka-ivory-400: #E5E0D3;
+  
+  --ka-stone-100: #EAE7E0;
+  --ka-stone-200: #D8D4CC;
+  --ka-stone-300: #C6C1B8;
+
+  --ka-ink-50: #3B3A39;
+  --ka-ink-100: #2F2E2D;
+  --ka-ink-200: #242322;
+  --ka-ink-900: #0E0E0E;
+  
+  --ka-neutral-50: #F6F7F8;
+  --ka-neutral-100: #ECEEF0;
+  --ka-neutral-200: #D9DDE1;
+  --ka-neutral-300: #B8BEC6;
+  --ka-neutral-400: #9098A1;
+  --ka-neutral-500: #6B7380;
+
+  /* Surfaces */
+  --ka-bg: var(--ka-ivory-100);
+  --ka-panel: #FFFFFF;
+  --ka-muted: var(--ka-ivory-200);
+
+  /* Text */
+  --ka-text: #1B1B1B;
+  --ka-text-2: #4A4A4A;
+  --ka-text-muted: #6B7380;
+  --ka-text-on-gold: #1B1B1B;
+
+  /* Brand */
+  --ka-brand: var(--ka-gold-600);
+  --ka-accent: var(--ka-gold-300);
+
+  /* Typography */
+  --ka-font-heading: "Cormorant Garamond", ui-serif, Georgia, serif;
+  --ka-font-body: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  --ka-fs-xs: 12px;
+  --ka-fs-sm: 14px;
+  --ka-fs-md: 16px;
+  --ka-fs-lg: 18px;
+  --ka-fs-xl: 20px;
+  --ka-fs-2xl: 24px;
+  --ka-fs-3xl: 28px;
+  --ka-fs-4xl: 34px;
+  --ka-fs-5xl: 42px;
+  
+  --ka-lh-tight: 1.1;
+  --ka-lh-snug: 1.25;
+  --ka-lh: 1.5;
+  --ka-lh-relaxed: 1.65;
+  
+  --ka-fw-regular: 400;
+  --ka-fw-medium: 500;
+  --ka-fw-semibold: 600;
+  --ka-fw-bold: 700;
+
+  /* Radii & Spacing */
+  --ka-radius-xs: 6px;
+  --ka-radius-sm: 10px;
+  --ka-radius-md: 14px;
+  --ka-radius-lg: 20px;
+  --ka-radius-xl: 28px;
+  --ka-radius-pill: 999px;
+  
+  --ka-space-0: 0;
+  --ka-space-1: 4px;
+  --ka-space-2: 8px;
+  --ka-space-3: 12px;
+  --ka-space-4: 16px;
+  --ka-space-5: 20px;
+  --ka-space-6: 24px;
+  --ka-space-7: 28px;
+  --ka-space-8: 32px;
+  --ka-space-10: 40px;
+  --ka-space-12: 48px;
+  --ka-space-16: 64px;
+
+  /* Effects */
+  --ka-shadow-soft: 0 2px 10px rgba(0,0,0,0.05);
+  --ka-shadow-elevated: 0 10px 30px rgba(0,0,0,0.08);
+  --ka-shadow-modal: 0 20px 60px rgba(0,0,0,0.2);
+  --ka-blur-frost: 10px;
+
+  /* Motion */
+  --ka-ease: cubic-bezier(0.4,0,0.2,1);
+  --ka-ease-out: cubic-bezier(0.16,1,0.3,1);
+  --ka-dur-fast: 120ms;
+  --ka-dur: 200ms;
+  --ka-dur-slow: 320ms;
+
+  /* Gradients */
+  --ka-grad-gold: linear-gradient(135deg, #F0E2AF 0%, #CFA544 55%, #E6CF84 100%);
+  --ka-grad-gold-subtle: linear-gradient(135deg, rgba(240, 226, 175, 0.3) 0%, rgba(207, 165, 68, 0.1) 100%);
+  --ka-grad-gold-border: linear-gradient(180deg, rgba(255,255,255,0.7), rgba(207,165,68,0.4));
+
+  /* Breakpoints */
+  --ka-bp-sm: 480px;
+  --ka-bp-md: 768px;
+  --ka-bp-lg: 1024px;
+  --ka-bp-xl: 1280px;
+
+  /* Z-Index */
+  --ka-z-nav: 100;
+  --ka-z-dropdown: 900;
+  --ka-z-modal: 1000;
+  --ka-z-toast: 1100;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --ka-bg: #0F0F10;
+  --ka-panel: #161617;
+  --ka-muted: #1C1C1D;
+  --ka-text: #ECECEC;
+  --ka-text-2: #BDBDBD;
+  --ka-text-muted: #9098A1;
+  --ka-brand: var(--ka-gold-500);
+  --ka-text-on-gold: #0E0E0E;
+}
+
+/* Base styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--ka-font-body);
+  color: var(--ka-text);
+  background-color: var(--ka-bg);
+  line-height: var(--ka-lh);
+  transition: background-color var(--ka-dur) var(--ka-ease), color var(--ka-dur) var(--ka-ease);
+}
+
+/* Component Classes */
+
+/* Cards */
+.ka-card {
+  background: var(--ka-panel);
+  border-radius: var(--ka-radius-lg);
+  padding: var(--ka-space-6);
+  box-shadow: var(--ka-shadow-soft);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: box-shadow var(--ka-dur) var(--ka-ease), transform var(--ka-dur) var(--ka-ease);
+}
+
+.ka-card--elevated {
+  box-shadow: var(--ka-shadow-elevated);
+}
+
+.ka-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ka-shadow-elevated);
+}
+
+/* Buttons */
+.ka-button {
+  font-family: var(--ka-font-body);
+  font-weight: var(--ka-fw-medium);
+  font-size: var(--ka-fs-md);
+  padding: 12px 18px;
+  border-radius: var(--ka-radius-pill);
+  border: none;
+  color: var(--ka-text-on-gold);
+  background: var(--ka-grad-gold);
+  cursor: pointer;
+  transition: transform var(--ka-dur) var(--ka-ease), box-shadow var(--ka-dur) var(--ka-ease);
+  box-shadow: 0 8px 24px rgba(207,165,68,0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ka-space-2);
+  text-decoration: none;
+}
+
+.ka-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(207,165,68,0.35);
+}
+
+.ka-button:active {
+  transform: translateY(0);
+}
+
+.ka-button:focus {
+  outline: 2px solid var(--ka-gold-600);
+  outline-offset: 2px;
+}
+
+/* Primary button - matches ka-button but with explicit class */
+.ka-button-primary {
+  font-family: var(--ka-font-body);
+  font-weight: var(--ka-fw-medium);
+  font-size: var(--ka-fs-md);
+  padding: 12px 18px;
+  border-radius: var(--ka-radius-pill);
+  border: none;
+  color: var(--ka-text-on-gold);
+  background: var(--ka-grad-gold);
+  cursor: pointer;
+  transition: transform var(--ka-dur) var(--ka-ease), box-shadow var(--ka-dur) var(--ka-ease);
+  box-shadow: 0 8px 24px rgba(207,165,68,0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ka-space-2);
+  text-decoration: none;
+}
+
+.ka-button-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 32px rgba(207,165,68,0.35);
+}
+
+.ka-button-primary:active {
+  transform: translateY(0);
+}
+
+.ka-button-primary:focus {
+  outline: 2px solid var(--ka-gold-600);
+  outline-offset: 2px;
+}
+
+/* Secondary button - outline variant */
+.ka-button-secondary {
+  font-family: var(--ka-font-body);
+  font-weight: var(--ka-fw-medium);
+  font-size: var(--ka-fs-md);
+  padding: 12px 18px;
+  border-radius: var(--ka-radius-pill);
+  background: transparent;
+  border: 1.5px solid var(--ka-gold-600);
+  color: var(--ka-gold-700);
+  cursor: pointer;
+  transition: all var(--ka-dur) var(--ka-ease);
+  box-shadow: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ka-space-2);
+  text-decoration: none;
+}
+
+.ka-button-secondary:hover {
+  background: rgba(248, 239, 210, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(207,165,68,0.15);
+  border-color: var(--ka-gold-700);
+  color: var(--ka-gold-800);
+}
+
+.ka-button-secondary:active {
+  transform: translateY(0);
+}
+
+.ka-button-secondary:focus {
+  outline: 2px solid var(--ka-gold-600);
+  outline-offset: 2px;
+}
+
+/* Legacy outline class for compatibility */
+.ka-outline {
+  background: transparent;
+  border: 1.5px solid var(--ka-gold-600);
+  color: var(--ka-gold-700);
+  box-shadow: none;
+}
+
+.ka-outline:hover {
+  background: rgba(248, 239, 210, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(207,165,68,0.15);
+}
+
+/* Typography */
+.ka-section-title {
+  font-family: var(--ka-font-heading);
+  font-size: var(--ka-fs-3xl);
+  font-weight: var(--ka-fw-semibold);
+  letter-spacing: -0.01em;
+  line-height: var(--ka-lh-tight);
+  color: var(--ka-ink-50);
+  margin-bottom: var(--ka-space-4);
+}
+
+.ka-heading-1 {
+  font-family: var(--ka-font-heading);
+  font-size: var(--ka-fs-5xl);
+  font-weight: var(--ka-fw-bold);
+  letter-spacing: -0.02em;
+  line-height: var(--ka-lh-tight);
+  color: var(--ka-ink-50);
+}
+
+.ka-heading-2 {
+  font-family: var(--ka-font-heading);
+  font-size: var(--ka-fs-4xl);
+  font-weight: var(--ka-fw-semibold);
+  letter-spacing: -0.01em;
+  line-height: var(--ka-lh-snug);
+  color: var(--ka-ink-50);
+}
+
+.ka-body-lg {
+  font-size: var(--ka-fs-lg);
+  line-height: var(--ka-lh-relaxed);
+  color: var(--ka-text-2);
+}
+
+/* Chips & Labels */
+.ka-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ka-space-2);
+  padding: 6px 12px;
+  border-radius: var(--ka-radius-pill);
+  background: var(--ka-ivory-300);
+  color: var(--ka-ink-50);
+  border: 1px solid var(--ka-gold-300);
+  font-size: var(--ka-fs-sm);
+  font-weight: var(--ka-fw-medium);
+}
+
+.ka-chip--gold {
+  background: var(--ka-grad-gold-subtle);
+  color: var(--ka-gold-800);
+  border-color: var(--ka-gold-400);
+}
+
+/* Icons */
+.ka-icon {
+  stroke: var(--ka-gold-600);
+  fill: none;
+  stroke-width: 1.5px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ka-icon--sm {
+  width: 16px;
+  height: 16px;
+}
+
+.ka-icon--md {
+  width: 20px;
+  height: 20px;
+}
+
+.ka-icon--lg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Wellness Tool Cards */
+.ka-wellness-card {
+  background: var(--ka-panel);
+  border-radius: var(--ka-radius-lg);
+  padding: var(--ka-space-6);
+  box-shadow: var(--ka-shadow-soft);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all var(--ka-dur) var(--ka-ease);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--ka-space-4);
+  min-height: 160px;
+}
+
+.ka-wellness-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ka-shadow-elevated);
+  border-color: rgba(207,165,68,0.2);
+}
+
+.ka-wellness-card__icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ka-radius-md);
+  background: var(--ka-grad-gold-subtle);
+  color: var(--ka-gold-700);
+}
+
+.ka-wellness-card__title {
+  font-family: var(--ka-font-heading);
+  font-size: var(--ka-fs-lg);
+  font-weight: var(--ka-fw-medium);
+  color: var(--ka-ink-50);
+  margin: 0;
+}
+
+/* Form elements */
+.ka-input {
+  font-family: var(--ka-font-body);
+  font-size: var(--ka-fs-md);
+  padding: 12px 16px;
+  border-radius: var(--ka-radius-sm);
+  border: 1.5px solid var(--ka-stone-200);
+  background: var(--ka-panel);
+  color: var(--ka-text);
+  transition: border-color var(--ka-dur) var(--ka-ease), box-shadow var(--ka-dur) var(--ka-ease);
+}
+
+.ka-input:focus {
+  outline: none;
+  border-color: var(--ka-gold-600);
+  box-shadow: 0 0 0 3px rgba(207,165,68,0.1);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .ka-card {
+    padding: var(--ka-space-5);
+  }
+  
+  .ka-section-title {
+    font-size: var(--ka-fs-2xl);
+  }
+  
+  .ka-heading-1 {
+    font-size: var(--ka-fs-4xl);
+  }
+  
+  .ka-heading-2 {
+    font-size: var(--ka-fs-3xl);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .ka-button,
+  .ka-card,
+  .ka-wellness-card,
+  .ka-input {
+    transition: none;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.ka-wellness-card:focus,
+.ka-card:focus {
+  outline: 2px solid var(--ka-gold-600);
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.ka-loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.ka-loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Theme toggle utility */
+.theme-toggle {
+  background: var(--ka-panel);
+  border: 1px solid var(--ka-stone-200);
+  border-radius: var(--ka-radius-pill);
+  padding: var(--ka-space-2);
+  cursor: pointer;
+  transition: all var(--ka-dur) var(--ka-ease);
+}
+
+.theme-toggle:hover {
+  border-color: var(--ka-gold-400);
+  transform: scale(1.05);
+}
+
+/* ===================================
+   KINAURA BRANDED BACKGROUNDS
+   =================================== */
+
+/* KinAura app background with luxury splash */
+.kinaura-app-background {
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--ka-ivory-100); /* Fallback */
+}
+
+/* Responsive background sizing */
+@media (max-width: 768px) {
+  .kinaura-app-background {
+    background-attachment: scroll; /* Better performance on mobile */
+    background-size: cover;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .kinaura-app-background {
+    background-size: cover;
+  }
+}
+
+/* Overlay for content readability */
+.kinaura-app-overlay {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure content cards have subtle transparency to show background */
+.ka-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(184, 142, 53, 0.1);
+}
+
+/* Loading screen should use the same background */
+.loading-screen-background {
+  background-image: inherit;
+  background-size: inherit;
+  background-position: inherit;
+  background-attachment: inherit;
+}
+
+/* Panel backgrounds should be semi-transparent */
+.ka-panel {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* ===================================
+   ANIMATIONS & KEYFRAMES
+   =================================== */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Animation Utilities */
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ===================================
+   ICON UTILITIES
+   =================================== */
+
+.ka-icon {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  stroke-width: 1.5;
+}
+
+.ka-icon--xs {
+  width: 1rem;
+  height: 1rem;
+}
+
+.ka-icon--sm {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.ka-icon--lg {
+  width: 2rem;
+  height: 2rem;
+}
+
+.ka-icon--xl {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* ===================================
+   FOCUS STYLES & ACCESSIBILITY  
+   =================================== */
+
+/* Enhanced focus rings for accessibility */
+.ka-focus:focus-visible,
+.ka-button:focus-visible,
+.ka-outline:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--ka-gold-600);
+  outline-offset: 3px;
+  border-radius: var(--ka-radius-sm);
+  transition: outline-offset var(--ka-dur) var(--ka-ease);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .ka-button {
+    border: 2px solid var(--ka-text);
+  }
+  
+  .ka-card {
+    border: 1px solid var(--ka-text);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .animate-shimmer,
+  .animate-slide-in-right,
+  .animate-fade-in,
+  .animate-pulse {
+    animation: none !important;
+  }
+}
+
+/* Remove default focus for mouse users */
+.ka-focus:focus:not(:focus-visible),
+.ka-button:focus:not(:focus-visible),
+.ka-outline:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip links for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--ka-brand);
+  color: var(--ka-text-on-gold);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: var(--ka-radius-sm);
+  z-index: var(--ka-z-modal);
+  transition: top var(--ka-dur) var(--ka-ease);
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus within for containers */
+.ka-card:focus-within {
+  box-shadow: var(--ka-shadow-elevated), 0 0 0 2px var(--ka-gold-300);
+}
+
+/* Button focus improvements */
+.ka-button:focus-visible {
+  box-shadow: 
+    0 8px 24px rgba(207,165,68,0.25),
+    0 0 0 3px var(--ka-gold-300);
+}
+
+.ka-outline:focus-visible {
+  box-shadow: 0 0 0 3px var(--ka-gold-300);
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+/* Text styles */
+.ka-text {
+  color: var(--ka-text);
+}
+
+.ka-text-2 {
+  color: var(--ka-text-2);
+}
+
+.ka-text-brand {
+  color: var(--ka-brand);
+}
+
+/* Typography utilities */
+.ka-heading-1 {
+  font-family: var(--ka-font-heading);
+  font-size: var(--ka-fs-5xl);
+  line-height: var(--ka-lh-tight);
+  font-weight: var(--ka-fw-bold);
+  color: var(--ka-text);
+}
+
+.ka-heading-2 {
+  font-family: var(--ka-font-heading);
+  font-size: var(--ka-fs-4xl);
+  line-height: var(--ka-lh-tight);
+  font-weight: var(--ka-fw-semibold);
+  color: var(--ka-text);
+}
+
+.ka-heading-3 {
+  font-family: var(--ka-font-heading);
+  font-size: var(--ka-fs-3xl);
+  line-height: var(--ka-lh-snug);
+  font-weight: var(--ka-fw-semibold);
+  color: var(--ka-text);
+}
+
+.ka-body-lg {
+  font-family: var(--ka-font-body);
+  font-size: var(--ka-fs-lg);
+  line-height: var(--ka-lh);
+  color: var(--ka-text-2);
+}
+
+.ka-body {
+  font-family: var(--ka-font-body);
+  font-size: var(--ka-fs-md);
+  line-height: var(--ka-lh);
+  color: var(--ka-text);
+}
+
+.ka-body-sm {
+  font-family: var(--ka-font-body);
+  font-size: var(--ka-fs-sm);
+  line-height: var(--ka-lh-snug);
+  color: var(--ka-text-2);
+}
+
+/* Spacing utilities */
+.ka-space-y-1 > * + * {
+  margin-top: var(--ka-space-1);
+}
+
+.ka-space-y-2 > * + * {
+  margin-top: var(--ka-space-2);
+}
+
+.ka-space-y-3 > * + * {
+  margin-top: var(--ka-space-3);
+}
+
+.ka-space-y-4 > * + * {
+  margin-top: var(--ka-space-4);
+}
+
+.ka-space-y-6 > * + * {
+  margin-top: var(--ka-space-6);
+}

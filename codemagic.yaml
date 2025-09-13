@@ -1,0 +1,468 @@
+workflows:
+  # Production iOS Build with Enhanced Security and Environment Management
+  ios-production:
+    name: KinAura iOS Production Build
+    max_build_duration: 120
+    instance_type: mac_mini_m1
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: 'v*'
+          include: true
+      branch_patterns:
+        - pattern: 'main'
+          include: true
+          source: true
+    integrations:
+      app_store_connect: codemagic
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.kinauramed.kinaura
+        automatic: true
+      vars:
+        # Build Configuration
+        BUNDLE_ID: "com.kinauramed.kinaura"
+        XCODE_WORKSPACE: "App.xcworkspace"
+        XCODE_SCHEME: "App"
+        APP_NAME: "KinAura"
+        
+        # Production Environment Variables (Set in Codemagic UI)
+        REACT_APP_BACKEND_URL: "https://api.kinaura.med"
+        REACT_APP_ENVIRONMENT: "production"
+        REACT_APP_ENFORCE_HTTPS: "true"
+        REACT_APP_ENABLE_WEBSOCKET: "true"
+        REACT_APP_ENABLE_DEBUG_LOGS: "false"
+        
+        # Firebase Production Configuration
+        REACT_APP_FIREBASE_API_KEY: $FIREBASE_PROD_API_KEY
+        REACT_APP_FIREBASE_AUTH_DOMAIN: $FIREBASE_PROD_AUTH_DOMAIN
+        REACT_APP_FIREBASE_PROJECT_ID: $FIREBASE_PROD_PROJECT_ID
+        REACT_APP_FIREBASE_STORAGE_BUCKET: $FIREBASE_PROD_STORAGE_BUCKET
+        REACT_APP_FIREBASE_MESSAGING_SENDER_ID: $FIREBASE_PROD_MESSAGING_SENDER_ID
+        REACT_APP_FIREBASE_APP_ID: $FIREBASE_PROD_APP_ID
+        REACT_APP_FIREBASE_VAPID_KEY: $FIREBASE_PROD_VAPID_KEY
+        
+        # Social Login Production Configuration
+        REACT_APP_APPLE_CLIENT_ID: "com.kinauramed.kinaura"
+        REACT_APP_FACEBOOK_APP_ID: $FACEBOOK_PROD_APP_ID
+        REACT_APP_GOOGLE_WEB_CLIENT_ID: $GOOGLE_PROD_CLIENT_ID
+        
+      node: 18.17.0
+      xcode: 15.2
+      cocoapods: default
+    cache:
+      cache_paths:
+        - $HOME/Library/Caches/CocoaPods
+        - frontend/node_modules
+        - frontend/ios/App/Pods
+    scripts:
+      - name: Validate Environment Configuration
+        script: |
+          echo "🔧 Validating production environment configuration..."
+          
+          # Check required environment variables
+          required_vars=(
+            "REACT_APP_BACKEND_URL"
+            "REACT_APP_FIREBASE_PROJECT_ID"
+            "REACT_APP_FIREBASE_API_KEY"
+            "REACT_APP_APPLE_CLIENT_ID"
+          )
+          
+          missing_vars=()
+          for var in "${required_vars[@]}"; do
+            if [ -z "${!var}" ]; then
+              missing_vars+=("$var")
+            fi
+          done
+          
+          if [ ${#missing_vars[@]} -ne 0 ]; then
+            echo "❌ Missing required environment variables:"
+            printf '%s\n' "${missing_vars[@]}"
+            exit 1
+          fi
+          
+          echo "✅ Environment validation passed"
+          echo "Backend URL: $REACT_APP_BACKEND_URL"
+          echo "Firebase Project: $REACT_APP_FIREBASE_PROJECT_ID"
+          echo "Bundle ID: $BUNDLE_ID"
+          
+      - name: Install Dependencies and Build
+        script: |
+          cd frontend
+          echo "📦 Installing dependencies..."
+          yarn install --frozen-lockfile --production
+          
+          echo "🏗️ Building React app for production..."
+          NODE_ENV=production yarn build
+          
+          echo "✅ Build completed successfully"
+          
+      - name: Configure Firebase for iOS
+        script: |
+          cd frontend
+          
+          # Create GoogleService-Info.plist from environment variables
+          cat > ios/App/App/GoogleService-Info.plist << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>API_KEY</key>
+            <string>$REACT_APP_FIREBASE_API_KEY</string>
+            <key>GCM_SENDER_ID</key>
+            <string>$REACT_APP_FIREBASE_MESSAGING_SENDER_ID</string>
+            <key>PLIST_VERSION</key>
+            <string>1</string>
+            <key>BUNDLE_ID</key>
+            <string>$BUNDLE_ID</string>
+            <key>PROJECT_ID</key>
+            <string>$REACT_APP_FIREBASE_PROJECT_ID</string>
+            <key>STORAGE_BUCKET</key>
+            <string>$REACT_APP_FIREBASE_STORAGE_BUCKET</string>
+            <key>IS_ADS_ENABLED</key>
+            <false/>
+            <key>IS_ANALYTICS_ENABLED</key>
+            <true/>
+            <key>IS_APPINVITE_ENABLED</key>
+            <true/>
+            <key>IS_GCM_ENABLED</key>
+            <true/>
+            <key>IS_SIGNIN_ENABLED</key>
+            <true/>
+            <key>GOOGLE_APP_ID</key>
+            <string>$REACT_APP_FIREBASE_APP_ID</string>
+          </dict>
+          </plist>
+          EOF
+          
+          echo "✅ Firebase iOS configuration created"
+          
+      - name: Capacitor Sync and iOS Setup
+        script: |
+          cd frontend
+          
+          echo "📱 Syncing Capacitor iOS..."
+          npx cap sync ios
+          
+          echo "🏗️ Installing CocoaPods dependencies..."
+          cd ios/App
+          pod install --repo-update
+          
+          echo "✅ iOS setup completed"
+          
+      - name: iOS Code Signing Setup
+        script: |
+          echo "🔐 Setting up iOS code signing..."
+          
+          # Initialize keychain
+          keychain initialize
+          
+          # Fetch signing files from App Store Connect
+          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_STORE --create
+          
+          # Add certificates to keychain
+          keychain add-certificates
+          
+          echo "✅ Code signing setup completed"
+          
+      - name: Configure Xcode Project
+        script: |
+          cd frontend
+          
+          echo "⚙️ Configuring Xcode project..."
+          
+          # Set up code signing profiles
+          xcode-project use-profiles
+          
+          # Update version and build number
+          BUILD_NUMBER=$(($(date +%s) / 60))
+          /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString 1.0.0" ios/App/App/Info.plist
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" ios/App/App/Info.plist
+          
+          # Remove development ATS exceptions for production
+          /usr/libexec/PlistBuddy -c "Delete :NSAppTransportSecurity:NSExceptionDomains:localhost" ios/App/App/Info.plist || true
+          /usr/libexec/PlistBuddy -c "Delete :NSAppTransportSecurity:NSExceptionDomains:golden-health-1.preview.emergentagent.com" ios/App/App/Info.plist || true
+          
+          # Set production APS environment
+          /usr/libexec/PlistBuddy -c "Set :aps-environment production" ios/App/App/Info.plist
+          
+          echo "✅ Xcode project configured for production"
+          echo "Version: 1.0.0, Build: $BUILD_NUMBER"
+          
+      - name: Build iOS App Archive
+        script: |
+          cd frontend
+          
+          echo "🏗️ Building iOS app archive..."
+          
+          # Create export options plist for App Store distribution
+          export EXPORT_OPTIONS_PLIST=/tmp/ExportOptions.plist
+          cat > $EXPORT_OPTIONS_PLIST << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>destination</key>
+            <string>upload</string>
+            <key>method</key>
+            <string>app-store</string>
+            <key>teamID</key>
+            <string>\$TEAM_ID</string>
+            <key>uploadBitcode</key>
+            <false/>
+            <key>compileBitcode</key>
+            <false/>
+            <key>uploadSymbols</key>
+            <true/>
+            <key>signingStyle</key>
+            <string>automatic</string>
+            <key>generateAppStoreInformation</key>
+            <true/>
+            <key>iCloudContainerEnvironment</key>
+            <string>Production</string>
+          </dict>
+          </plist>
+          EOF
+          
+          # Build and archive
+          xcode-project build-ipa \
+            --workspace ios/App/$XCODE_WORKSPACE \
+            --scheme $XCODE_SCHEME \
+            --export-options-plist $EXPORT_OPTIONS_PLIST
+          
+          echo "✅ iOS build completed successfully"
+          
+    artifacts:
+      - frontend/build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+      
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false  # Manual submission after testing
+      
+      email:
+        recipients:
+          - marco@kinauramed.com
+          - dev@kinauramed.com
+        notify:
+          success: true
+          failure: true
+
+  # Development iOS Build for Testing
+  ios-development:
+    name: KinAura iOS Development Build
+    max_build_duration: 90
+    instance_type: mac_mini_m1
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'develop'
+          include: true
+          source: true
+        - pattern: 'feature/*'
+          include: true
+          source: true
+    environment:
+      ios_signing:
+        distribution_type: development
+        bundle_identifier: com.kinauramed.kinaura.dev
+        automatic: true
+      vars:
+        BUNDLE_ID: "com.kinauramed.kinaura.dev"
+        XCODE_WORKSPACE: "App.xcworkspace"
+        XCODE_SCHEME: "App"
+        # Development environment variables
+        REACT_APP_BACKEND_URL: "https://golden-health-1.preview.emergentagent.com"
+        REACT_APP_ENVIRONMENT: "development"
+        REACT_APP_ENABLE_DEBUG_LOGS: "true"
+        # Development Firebase (use staging project)
+        REACT_APP_FIREBASE_PROJECT_ID: "kinaura-staging"
+      node: 18.17.0
+      xcode: 15.2
+      cocoapods: default
+    cache:
+      cache_paths:
+        - frontend/node_modules
+    scripts:
+      - name: Quick Development Build
+        script: |
+          cd frontend
+          yarn install
+          yarn build
+          npx cap sync ios
+          cd ios/App && pod install
+          
+      - name: Build Development IPA
+        script: |
+          cd frontend
+          keychain initialize
+          app-store-connect fetch-signing-files $BUNDLE_ID --type IOS_APP_DEVELOPMENT --create
+          keychain add-certificates
+          xcode-project use-profiles
+          xcode-project build-ipa --workspace ios/App/$XCODE_WORKSPACE --scheme $XCODE_SCHEME
+          
+    artifacts:
+      - frontend/build/ios/ipa/*.ipa
+      
+    publishing:
+      email:
+        recipients:
+          - dev@kinauramed.com
+        notify:
+          success: true
+          failure: true
+
+  # Production Android Build
+  android-production:
+    name: KinAura Android Production Build
+    max_build_duration: 120
+    instance_type: linux_x2
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: 'v*'
+          include: true
+    environment:
+      android_signing:
+        - kinaura_keystore  # Configure in Codemagic UI
+      vars:
+        PACKAGE_NAME: "com.kinauramed.kinaura"
+        APP_NAME: "KinAura"
+        
+        # Production Environment
+        REACT_APP_BACKEND_URL: "https://api.kinaura.med"
+        REACT_APP_ENVIRONMENT: "production"
+        REACT_APP_ENFORCE_HTTPS: "true"
+        REACT_APP_ENABLE_DEBUG_LOGS: "false"
+        
+        # Firebase Production Configuration
+        REACT_APP_FIREBASE_API_KEY: $FIREBASE_PROD_API_KEY
+        REACT_APP_FIREBASE_PROJECT_ID: $FIREBASE_PROD_PROJECT_ID
+        REACT_APP_FIREBASE_APP_ID: $FIREBASE_PROD_APP_ID
+        
+      node: 18.17.0
+      java: 11
+      android_sdk: 33
+    cache:
+      cache_paths:
+        - ~/.gradle/caches
+        - frontend/node_modules
+        - frontend/android/.gradle
+    scripts:
+      - name: Environment Validation and Setup
+        script: |
+          echo "🔧 Validating Android production environment..."
+          
+          # Validate required variables
+          if [ -z "$REACT_APP_BACKEND_URL" ] || [ -z "$REACT_APP_FIREBASE_PROJECT_ID" ]; then
+            echo "❌ Missing required environment variables"
+            exit 1
+          fi
+          
+          echo "✅ Environment validation passed"
+          
+      - name: Install Dependencies and Build
+        script: |
+          cd frontend
+          echo "📦 Installing dependencies..."
+          yarn install --frozen-lockfile --production
+          
+          echo "🏗️ Building React app..."
+          NODE_ENV=production yarn build
+          
+      - name: Configure Firebase for Android
+        script: |
+          cd frontend
+          
+          # Create google-services.json from environment variables
+          cat > android/app/google-services.json << EOF
+          {
+            "project_info": {
+              "project_number": "$REACT_APP_FIREBASE_MESSAGING_SENDER_ID",
+              "project_id": "$REACT_APP_FIREBASE_PROJECT_ID",
+              "storage_bucket": "$REACT_APP_FIREBASE_STORAGE_BUCKET"
+            },
+            "client": [
+              {
+                "client_info": {
+                  "mobilesdk_app_id": "$REACT_APP_FIREBASE_APP_ID",
+                  "android_client_info": {
+                    "package_name": "$PACKAGE_NAME"
+                  }
+                },
+                "oauth_client": [],
+                "api_key": [
+                  {
+                    "current_key": "$REACT_APP_FIREBASE_API_KEY"
+                  }
+                ],
+                "services": {
+                  "appinvite_service": {
+                    "other_platform_oauth_client": []
+                  }
+                }
+              }
+            ],
+            "configuration_version": "1"
+          }
+          EOF
+          
+          echo "✅ Firebase Android configuration created"
+          
+      - name: Capacitor Sync and Android Setup
+        script: |
+          cd frontend
+          
+          echo "📱 Syncing Capacitor Android..."
+          npx cap sync android
+          
+          echo "✅ Android setup completed"
+          
+      - name: Update Android Version
+        script: |
+          cd frontend/android/app
+          
+          # Update version code and name
+          VERSION_CODE=$(($(date +%s) / 60))
+          sed -i "s/versionCode [0-9]*/versionCode $VERSION_CODE/" build.gradle
+          sed -i "s/versionName \"[^\"]*\"/versionName \"1.0.0\"/" build.gradle
+          
+          echo "✅ Version updated: 1.0.0 ($VERSION_CODE)"
+          
+      - name: Build Android App Bundle (Production)
+        script: |
+          cd frontend/android
+          
+          echo "🏗️ Building Android App Bundle for Play Store..."
+          ./gradlew bundleRelease
+          
+          echo "📱 Building Android APK for testing..."
+          ./gradlew assembleRelease
+          
+          echo "✅ Android builds completed"
+          
+    artifacts:
+      - frontend/android/app/build/outputs/bundle/release/*.aab
+      - frontend/android/app/build/outputs/apk/release/*.apk
+      - frontend/android/app/build/outputs/mapping/release/mapping.txt
+      
+    publishing:
+      google_play:
+        credentials: $GCLOUD_SERVICE_ACCOUNT_CREDENTIALS
+        track: internal
+        submit_as_draft: true
+        
+      email:
+        recipients:
+          - marco@kinauramed.com
+          - dev@kinauramed.com
+        notify:
+          success: true
+          failure: true
